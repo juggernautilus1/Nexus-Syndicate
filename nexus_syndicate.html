@@ -54,7 +54,7 @@ h1{font:300 24px system-ui,sans-serif;letter-spacing:.5em;text-transform:upperca
 .hex::after{inset:2px;background:radial-gradient(circle,transparent 0 40%,color-mix(in srgb,var(--hexb) 60%,transparent) 40.5% 41.5%,transparent 42% 64%,color-mix(in srgb,var(--hexb) 60%,transparent) 64.5% 65.5%,transparent 66%),var(--hex)}
 .cell.hl .hex{background:var(--acc)}.cell.hl .hex::after{background:radial-gradient(circle,transparent 55%,color-mix(in srgb,var(--acc) 25%,transparent)),var(--hex)}
 @keyframes gl{50%{filter:drop-shadow(0 0 8px var(--acc))}}
-.stk{inset:20% 27% 20% 19%}.dice{right:8%}#board.fl .dice{right:auto;left:8%}
+.stk{inset:20% 27% 20% 19%}.dice{right:8%}
 .pyr{filter:drop-shadow(0 0 3px color-mix(in srgb,var(--col),transparent 45%))}
 .pyr i{background:linear-gradient(100deg,color-mix(in srgb,var(--col),#fff 32%) 50%,var(--col) 50%)}.pyr u{color:var(--ink)}
 .mk{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);width:calc(var(--u)*.085);height:calc(var(--u)*.085)}
@@ -80,7 +80,7 @@ body{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gr
 #info>span{display:block}
 .pool{--u:130px;display:inline-flex;vertical-align:bottom;align-items:flex-end;gap:7px;margin-left:6px;max-width:100%;flex-wrap:wrap}.pool .pyr{font-size:11px}
 .pyr{display:inline-grid;grid-template-rows:auto 1.3em;justify-items:center}
-:root:root:root{--p1:#eef2fa;--p2:#f2d675;--b:#455ed4;--r:#c63254;--g:#20ae8b}
+:root:root:root{--p1:#b583ff;--p2:#e8c24e;--b:#455ed4;--r:#c63254;--g:#20ae8b}
 .nm{position:absolute;left:15%;top:24%;z-index:1;font-size:10px;letter-spacing:.1em;color:var(--mut);pointer-events:none}
 #hist{width:250px;max-height:560px;overflow-y:auto;justify-self:start;border:1px solid var(--hexb);border-radius:6px;background:color-mix(in srgb,var(--bg) 70%,transparent);padding:14px;font-size:12px}
 #hist::before{content:"History";display:block;margin-bottom:10px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
@@ -102,20 +102,35 @@ body{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gr
 .cell.hl .hex{background:color-mix(in srgb,var(--acc) 60%,var(--hexb))}.cell.hl .hex::after{inset:1px}
 .cell.hl:hover .hex{background:color-mix(in srgb,var(--acc) 82%,var(--hexb))}.cell.hl:hover .hex::after{inset:1.2px;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 5%,transparent) 30%,color-mix(in srgb,var(--acc) 18%,transparent)),var(--tess) center/100% 100% no-repeat,var(--hex)}
 .cell{transition:opacity .15s}
-.cell em{left:8%;top:44%;color:#c9a8ff}
-.cell.org .hex{background:#c9a8ff}
+.cell em{left:8%;top:44%;color:var(--fc)}
+.cell.org .hex{background:var(--fc)}
 .die{--cut:none;position:relative;isolation:isolate;border:0;border-radius:3px;background:var(--col);color:var(--ink);clip-path:var(--cut);font:600 calc(var(--u)*.085) ui-monospace,Menlo,Consolas,monospace}
 .die::before{content:"";position:absolute;inset:1.5px;z-index:-1;border-radius:2px;background:color-mix(in srgb,var(--col) 14%,var(--hex));clip-path:var(--cut)}
 .die.ghost{background:color-mix(in srgb,var(--col) 45%,transparent);color:var(--col);opacity:.75}
 .die.ghost::before{background:var(--hex)}
 .mk{position:relative;flex:none}
-.mk[data-p="0"],.mk[data-p="1"]{background:#f1f4fa}
-.mk[data-p="1"]::after{content:"";position:absolute;inset:1.5px;background:#000;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.mk[data-p="0"]{background:var(--p1)}.mk[data-p="1"]{background:var(--p2)}.mk{clip-path:polygon(evenodd,50% 0,100% 50%,50% 100%,0 50%,50% 0,50% 15%,15% 50%,50% 85%,85% 50%,50% 15%)}
+.mk::after{content:none}
 .pl .mk{margin-left:2px;width:14px;height:14px}
 #board.pick .cell:not(.hl):not(.org):not(.keep):not(.fin):not(.tgt){opacity:.62;filter:saturate(.7)}
 #board.pick .cell.keep,#board.pick .cell.org{filter:brightness(1.15)}
-.cell.keep:not(.org) .hex{background:color-mix(in srgb,#c9a8ff 55%,var(--hexb))}
-.cell.org .hex::after{inset:1.8px;background:radial-gradient(circle,transparent 45%,color-mix(in srgb,#c9a8ff 24%,transparent)),var(--tess) center/100% 100% no-repeat,var(--hex)}
+.pq.used,#info>span.used{outline:2px solid var(--fc);outline-offset:2px;border-radius:3px}
+#msg{order:-2;align-self:flex-start;width:auto;max-width:min(94vw,640px);margin:0 0 0 14px;min-height:2.4em;padding:6px 14px;border:0;border-left:3px solid var(--acc);background:color-mix(in srgb,var(--hex) 85%,transparent);font:500 16px/1.4 system-ui,sans-serif;letter-spacing:.01em}
+#lside{order:-1;justify-self:end;width:250px;display:flex;flex-direction:column;gap:12px}
+#lside>*{width:100%}
+#lside #msg{order:0;align-self:auto;max-width:none;margin:0;font-size:13px}
+#lside #info{order:0}
+.plc{cursor:pointer}.plc.sel{filter:drop-shadow(0 0 4px var(--fc));transform:scale(1.25)}
+#menu label small{display:block;max-width:440px;margin:2px auto 8px;color:var(--mut);font-size:11px;line-height:1.4}
+@media(max-width:1200px){#lside{width:min(94vw,560px)}}
+.pyr i.used{background:var(--fc)}
+.pyr i.used::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,color-mix(in srgb,var(--col),#fff 32%) 50%,var(--col) 50%);clip-path:polygon(50% 17%,87% 89%,13% 89%)}
+.pyr.num i.used{position:relative}
+.die.used,.pd.used{outline:2px solid var(--fc);outline-offset:1px}
+.mks .mk.used,.mks.t .mk.used,.mks.bt .mk.used{transform:scale(1.3);filter:none;background:var(--fc);clip-path:polygon(evenodd,50% 0,100% 50%,50% 100%,0 50%,50% 0,50% 28%,28% 50%,50% 72%,72% 50%,50% 28%)}
+.mk.used::after{content:none}
+.cell.keep:not(.org) .hex{background:color-mix(in srgb,var(--fc) 55%,var(--hexb))}
+.cell.org .hex::after{inset:1.8px;background:radial-gradient(circle,transparent 45%,color-mix(in srgb,var(--fc) 24%,transparent)),var(--tess) center/100% 100% no-repeat,var(--hex)}
 .cell.org::before{content:none}
 .cell.f0{--fc:var(--p1)}.cell.f1{--fc:var(--p2)}
 .cell.tgt .hex{background:color-mix(in srgb,var(--fc) 50%,var(--hexb))}
@@ -125,22 +140,22 @@ body{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gr
 .pool .pyr.num u{position:absolute;left:50%;top:100%;transform:translateX(-50%);line-height:1.2;white-space:nowrap}
 #rside{display:flex;flex-direction:column;gap:14px;justify-self:start;width:250px}
 #hand{border:1px solid var(--hexb);border-radius:6px;background:color-mix(in srgb,var(--bg) 70%,transparent);padding:14px}#hand:empty{display:none}
-.hh{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+.hh{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-bottom:6px;flex:0 0 100%}
 .hp{display:flex;flex-wrap:wrap;gap:10px}
-.hi{--u:300px;font:inherit;color:inherit;background:transparent;border:2px solid var(--hexb);border-radius:6px;padding:8px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.hi.sel{border-color:var(--acc);background:var(--hl)}.hi span{font-size:11px}
+.hi{--u:200px;font:inherit;color:inherit;background:transparent;border:2px solid var(--hexb);border-radius:6px;padding:5px 9px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.hi.sel{border-color:var(--acc);background:var(--hl)}.hi span{font-size:11px}
 @media(max-width:1200px){#rside{width:min(94vw,560px)}}
 @media(max-width:1200px){#hist{width:min(94vw,560px);max-height:240px}}
 @media(max-width:870px){#info{order:0;width:min(94vw,560px);flex-direction:row;flex-wrap:wrap;padding:10px;gap:6px 14px}#info>span{display:inline-block}}
 </style></head><body>
 <h1>NEXUS<small>SYNDICATE</small></h1>
-<div id="ctl"></div><div id="wrap"><div id="main"><div id="top"></div><div id="board"></div><div id="bot"></div></div><div id="info"></div><div id="rside"><div id="hand"></div><div id="hist"></div></div></div><div id="msg"></div><div id="tray"></div><div id="btns"></div>
-<div id="menu"><h1>NEXUS<small>SYNDICATE</small></h1><label><input type="checkbox" id="omob" checked> Mobilisation (optional rule)</label><label><input type="checkbox" id="oig" checked> Intrigue (optional rule)</label><button class="btn pri" data-k="go" data-m="ai">Play the computer</button><button class="btn" data-k="go" data-m="hot">Two players, one screen</button><div>Online: both enter the same room code; Player 1 starts first<br><input type="text" id="code" placeholder="room code" maxlength="12"></div><div><button class="btn" data-k="go" data-m="n0">I am Player 1</button> <button class="btn" data-k="go" data-m="n1">I am Player 2</button></div></div>
+<div id="ctl"></div><div id="wrap"><div id="main"><div id="top"></div><div id="board"></div><div id="bot"></div></div><div id="lside"><div id="msg"></div><div id="tray"></div><div id="btns"></div><div id="info"></div></div><div id="rside"><div id="hist"></div></div></div>
+<div id="menu"><h1>NEXUS<small>SYNDICATE</small></h1><label><input type="checkbox" id="omob" checked> Mobilisation (optional rule)<small>Whenever the combined Spanning score passes a multiple of 10, the acting player takes 3 pyramids (recruitment pool first, then the popularity pools) and places them on any sectors. Passing two multiples at once gives 6.</small></label><label><input type="checkbox" id="oig" checked> Intrigue (optional rule)<small>Once per game, at the start or end of your turn, you may move any one influence marker to another sector that already has a marker. This needs one pyramid of each colour in your popularity pool, which go to the recruitment pool.</small></label><button class="btn pri" data-k="go" data-m="ai">Play the computer</button><button class="btn" data-k="go" data-m="hot">Two players, one screen</button><div>Online: both enter the same room code; Player 1 starts first<br><input type="text" id="code" placeholder="room code" maxlength="12"></div><div><button class="btn" data-k="go" data-m="n0">I am Player 1</button> <button class="btn" data-k="go" data-m="n1">I am Player 2</button></div></div>
 <script>
 const C=['b','r','g'],NM={b:'blue',r:'red',g:'green'},$=id=>document.getElementById(id);
 const adj=i=>{const x=i%3,y=i/3|0,a=[];x>0&&a.push(i-1);x<2&&a.push(i+1);y>0&&a.push(i-3);y<2&&a.push(i+3);return a};
 const E=()=>({b:{S:0,M:0},r:{S:0,M:0},g:{S:0,M:0}});
 const tot=t=>C.reduce((s,c)=>s+t.p[c].S+t.p[c].M,0),hasM=t=>t.m[0]+t.m[1]>0,hasB=t=>t.p.b.S+t.p.b.M>0;
-const pyr=(c,s,n,all)=>{if(!ST||all)return `<span class="pyr ${c} ${s} num"><i></i>${all?`<u>${n}</u>`:n>1?`<u>×${n}</u>`:''}</span>`;const m=Math.min(Math.max(n,1),6);return `<span class="pyr ${c} ${s}" style="--n:${m}">${n<1?'<i class="gh"></i>':'<i></i>'.repeat(m)}</span>`};
+const pyr=(c,s,n,all,k)=>{if(!ST||all)return `<span class="pyr ${c} ${s} num"><i${k?' class="used"':''}></i>${all?`<u>${n}</u>`:n>1?`<u>×${n}</u>`:''}</span>`;const m=Math.min(Math.max(n,1),6);return `<span class="pyr ${c} ${s}" style="--n:${m}">${n<1?'<i class="gh"></i>':Array.from({length:m},(_,j)=>j>=m-Math.min(k||0,m)?'<i class="used"></i>':'<i></i>').join('')}</span>`};
 let S,mv,a;
 function init(){FR=[];LJ='';
  const cards=[];C.forEach(c=>['S','M'].forEach(s=>[1,2,3].forEach(n=>cards.push({c,s,n}))));cards.push(null,null);
@@ -157,7 +172,7 @@ function avail(){const o=1-S.cur,pl=[];C.forEach(c=>['S','M'].forEach(s=>S.pool[
  for(const p of [o,S.cur]){const l=C.filter(c=>S.pop[p][c]).map(c=>({c,s:'S',n:S.pop[p][c],src:p}));if(l.length)return l}return[]}
 const stOpts=()=>a.left>0&&adj(a.x).some(i=>hasM(S.t[i])&&C.some(c=>S.t[i].d[c]?S.t[i].d[c]<6:S.dice[c]>0));
 function hlSet(){const s=new Set(),add=l=>l.forEach(x=>s.add(x)),all=[0,1,2,3,4,5,6,7,8],A=a?adj(a.x):[];
- switch(S.ph){
+ if(S.bz)return s;switch(S.ph){
  case'pm':add(all.filter(i=>!(S.pro===1&&S.first===i)));break;
  case'pick':add(all.filter(i=>tot(S.t[i])&&(!S.lg||S.lg.includes(i))));break;
  case'move':add(targets());break;
@@ -174,20 +189,20 @@ function render(){
  if(!RP){const id=['pm','pd','pick','move','confirm','ig1','ig2'].includes(S.ph)?S.log.length:S.log.length-1,js=JSON.stringify({S:{...S,log:0},mv,a});if(js!==LJ){LJ=js;FR.push({id,js})}clearTimeout(sv);sv=setTimeout(save,300)}
  if(mv&&!mv.hand.some(h=>mv.sel&&h.c===mv.sel.c&&h.s===mv.sel.s))mv.sel=mv.hand[0]?{c:mv.hand[0].c,s:mv.hand[0].s}:null;
  if(S.ph==='seed'){const av=avail();if(av.length&&!av.some(x=>a.sel&&x.c===a.sel.c&&x.s===a.sel.s))a.sel={c:av[0].c,s:av[0].s}}
- const H=hlSet();
+ const H=hlSet();const PL=mv&&(S.ph==='move'||S.ph==='confirm')?mv.placed:[];const MK=((a&&a.mk&&(ACT.includes(S.ph)||S.ph==='pp'||S.ph==='ch'||S.ph==='ad'))?a.mk:[]).concat(S.itg?S.itg.mk:[]);document.body.style.setProperty('--fc',S.cur?'var(--p2)':'var(--p1)');
  const f=flip();$('board').className=(f?'fl':'')+(H.size?' pick':'');$('board').innerHTML=(f?[8,7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7,8]).map(i=>{const t=S.t[i];let st='';
-  C.forEach(c=>['S','M'].forEach(s=>{const n=t.p[c][s];if(n)st+=`<span data-k="p" data-i="${i}" data-c="${c}" data-s="${s}">${pyr(c,s,n)}</span>`}));
+  C.forEach(c=>['S','M'].forEach(s=>{const n=t.p[c][s]-PL.filter(q=>q.x===i&&q.k.c===c&&q.k.s===s).length;if(n>0)st+=`<span data-k="p" data-i="${i}" data-c="${c}" data-s="${s}">${pyr(c,s,n,0,MK.filter(x=>x==='p:'+i+':'+c+':'+s).length)}</span>`}));PL.forEach((q,j)=>{if(q.x===i)st+=`<span class="plc${mv.sw===j?' sel':''}" data-k="pp" data-i="${i}" data-j="${j}">${pyr(q.k.c,q.k.s,1,0,1)}</span>`});
   const gh=S.ph==='st2'&&adj(a.x).includes(i)&&hasM(t);
-  const dc=C.map(c=>t.d[c]?`<b class="die ${c}" data-k="d" data-i="${i}" data-c="${c}">${t.d[c]}</b>`:(gh&&S.dice[c]?`<b class="die ghost ${c}" data-k="d" data-i="${i}" data-c="${c}">+</b>`:'')).join('');
-  const mk=p=>`<i class="mk" data-k="m" data-i="${i}" data-p="${p}"></i>`.repeat(t.m[p]);
+  const dc=C.map(c=>t.d[c]?`<b class="die ${c}${MK.includes('d:'+i+':'+c)?' used':''}" data-k="d" data-i="${i}" data-c="${c}">${t.d[c]}</b>`:(gh&&S.dice[c]?`<b class="die ghost ${c}" data-k="d" data-i="${i}" data-c="${c}">+</b>`:'')).join('');
+  const mk=p=>Array.from({length:t.m[p]},(_,j)=>`<i class="mk${MK.includes('m:'+i+':'+p)&&j===t.m[p]-1?' used':''}" data-k="m" data-i="${i}" data-p="${p}"></i>`).join('');
   const sn=mv?mv.placed.map((q,j)=>q.x===i?j+1:0).filter(Boolean).join('·'):'';
-  return `<div class="cell${H.has(i)?' hl':''}${mv&&mv.o===i?' org':''}${sn?' keep':''}${a&&a.x===i&&['pp','ch','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' fin f'+S.cur:''}${a&&a.tg&&a.tg.includes(i)&&['pp','ch','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' tgt f'+S.cur:''}" data-k="t" data-i="${i}"><div class="hex"></div><small class="nm">${nm(i)}</small><div class="mks t">${mk(f?0:1)}</div><div class="stk">${st}</div><div class="dice">${dc}</div><div class="mks bt">${mk(f?1:0)}</div>${sn?`<em>${sn}</em>`:''}</div>`}).join('');
- const sc=p=>`<div class="pl p${p}${S.cur===p&&S.ph!=='over'?' on':''}"><b>Player ${p+1}</b><i class="mk" data-p="${p}"></i><span>${S.ph==='over'&&S.tot?S.tot[p]:S.vp[p]} VP</span><small>popularity ${C.map(c=>`<span class="pq${S.pg&&S.pg.p===p&&S.pg.c===c?' gain':''}">${pyr(c,'S',S.pop[p][c],1)}</span>`).join('')}</small></div>`;
+  return `<div class="cell${H.has(i)?' hl':''}${mv&&mv.o===i?' org':''}${sn?' keep':''}${a&&a.x===i&&['pp','ch','ad','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' fin f'+S.cur:''}${a&&a.tg&&a.tg.includes(i)&&['pp','ch','ad','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' tgt f'+S.cur:''}" data-k="t" data-i="${i}"><div class="hex"></div><small class="nm">${nm(i)}</small><div class="mks t">${mk(f?0:1)}</div><div class="stk">${st}</div><div class="dice">${dc}</div><div class="mks bt">${mk(f?1:0)}</div>${sn?`<em>${sn}</em>`:''}</div>`}).join('');
+ const sc=p=>`<div class="pl p${p}${S.cur===p&&S.ph!=='over'?' on':''}"><b>Player ${p+1}</b><i class="mk" data-p="${p}"></i><span>${S.ph==='over'&&S.tot?S.tot[p]:S.vp[p]} VP</span><small>popularity ${C.map(c=>`<span class="pq${S.pg&&S.pg.p===p&&S.pg.c===c?' gain':''}${MK.includes('o:'+p+':'+c)?' used':''}">${pyr(c,'S',S.pop[p][c],1)}</span>`).join('')}</small></div>`;
  $('top').innerHTML=sc(f?0:1);$('bot').innerHTML=sc(f?1:0);
- $('ctl').innerHTML=`<button class="chip" data-k="x" data-a="flip" title="Flip the board view">⟲ Flip</button><button class="chip" data-k="x" data-a="stk" title="Switch between stacked pyramids and numbers">${ST?'Stacked':'Numbers'}</button><button class="chip" data-k="x" data-a="newg" title="Start a new game">New</button>`;
+ $('ctl').innerHTML=`<button class="chip" data-k="x" data-a="flip" title="Flip the board view">⟲ Flip</button><button class="chip" data-k="x" data-a="stk" title="Switch between stacked pyramids and numbers">${ST?'Stacked':'Numbers'}</button><button class="chip" data-k="x" data-a="newg" title="Start a new game (click twice)">${Date.now()-NG<3000?'Sure?':'New'}</button>`;
  {const h=$('hist'),sb=h.scrollTop+h.clientHeight>=h.scrollHeight-8,st=h.scrollTop;h.innerHTML=S.log.map((e,i)=>`<p data-k="h" data-i="${i}" title="Replay this move"><b class="w p${e.p}">${i+1}.</b> ${e.t}</p>`).join('');h.scrollTop=sb?h.scrollHeight:st}
- {const hd=$('hand');hd.innerHTML=mv&&(S.ph==='move'||S.ph==='confirm')?`<div class="hh">In hand · ${mv.hand.length} left</div><div class="hp">${grp(mv.hand).map(x=>`<button class="hi${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${pyr(x.c,x.s,x.n)}<span>${NM[x.c]} ${x.s==='S'?'small':'medium'}</span></button>`).join('')||'All pyramids placed.'}</div>`:''}
- $('info').innerHTML=`<span>Combined: <b>${S.ph==='over'&&S.tot?S.tot[0]+S.tot[1]:S.vp[0]+S.vp[1]} VP</b>${S.opt.mob&&S.ph!=='over'?` (Mobilisation at ${(((S.vp[0]+S.vp[1])/10|0)+1)*10})`:''}</span><span>Markers left: <b>${S.sup}</b></span><span>Dice left: ${C.map(c=>`<i class="pd ${c}">${S.dice[c]}</i>`).join(' ')}</span><span class="rp">Recruitment pool:<div class="pool">${C.map(c=>['S','M'].map(s=>S.pool[c][s]?pyr(c,s,S.pool[c][s]):'').join('')).join('')||'empty'}</div></span>`;
+ {const hd={};hd.innerHTML=mv&&(S.ph==='move'||S.ph==='confirm')?`<div class="hh">In hand · ${mv.hand.length} left</div><div class="hp">${grp(mv.hand).map(x=>`<button class="hi${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${pyr(x.c,x.s,x.n)}<span>${NM[x.c]} ${x.s==='S'?'small':'medium'}</span></button>`).join('')||'All pyramids placed.'}</div>`:''}
+ $('info').innerHTML=`<span>Combined: <b>${S.ph==='over'&&S.tot?S.tot[0]+S.tot[1]:S.vp[0]+S.vp[1]} VP</b>${S.opt.mob&&S.ph!=='over'?` (Mobilisation at ${(((S.vp[0]+S.vp[1])/10|0)+1)*10})`:''}</span><span class="${MK.includes('s')?'used':''}">Markers left: <b>${S.sup}</b></span><span>Dice left: ${C.map(c=>`<i class="pd ${c}${MK.includes('q:'+c)?' used':''}">${S.dice[c]}</i>`).join(' ')}</span><span class="rp">Recruitment pool:<div class="pool">${C.map(c=>['S','M'].map(s=>S.pool[c][s]?pyr(c,s,S.pool[c][s],0,MK.filter(x=>x==='r:'+c+':'+s).length):'').join('')).join('')||'empty'}</div></span>`;
  ui()}
 const nm=i=>'ABC'[i%3]+((i/3|0)+1);const lg=t=>{const e=S.log[a&&a.li!=null?a.li:S.log.length-1];if(e)e.t+=t};
 const grp=l=>{const m={};l.forEach(x=>{const k=x.c+x.s;m[k]=m[k]||{c:x.c,s:x.s,n:0};m[k].n++});return Object.values(m)};
@@ -197,8 +212,8 @@ function msg(){const n=a&&a.left,W=who(),pl=n>1?'s':'';
  return({pm:`${W}: Place your influence marker. Tap a sector${S.pro?' (not the one your opponent chose)':''}.`,
  pd:`${W}: Choose the colour of your first die (it starts at 1).`,
  pick:`${W}: Tap a sector to pick up all its pyramids. Only sectors with a legal move can be chosen.`,
- move:`${W}: Pick a pyramid below, then tap a neighbouring tile to place it. The last pyramid must land on a pyramid of the same colour and size, or beside a die of its colour. A sector can only be reused if the whole move is a loop back to the start sector (4+ sectors).${mv&&mv.hand.length>0&&!targets().length?' <b>No legal final sector. Undo your last placement.</b>':''}`,
- confirm:`${W}: Move complete. Confirm to trigger the action, or undo to change it.`,
+ move:`${W}: Pick a pyramid below, then tap a neighbouring tile to place it. The last pyramid must land on a pyramid of the same colour and size, or beside a die of its colour. A sector can only be reused if the whole move is a loop back to the start sector (4+ sectors). To swap, tap a placed pyramid and then another placed pyramid or one in your hand.${mv&&mv.hand.length>0&&!targets().length?' <b>No legal sector for the next pyramid. Undo a placement or swap pyramids.</b>':''}`,
+ confirm:`${W}: Move complete. Tap two placed pyramids to swap them, then confirm, or undo to change the move.${mv&&mv.warn?' <b>That swap would break the last-pyramid rule.</b>':''}`,
  sw1:`${W}: Spanning II. Tap a sector next to your final tile to swap.`,
  sw2:`${W}: Now tap a sector with a blue pyramid to swap it with.`,
  sil:`${W}: Silencing. Tap ${n} pyramid${pl} on neighbouring sectors to send to the recruitment pool.`,
@@ -207,14 +222,14 @@ function msg(){const n=a&&a.left,W=who(),pl=n>1?'s':'';
  st1:`${W}: Steering. Tap a neighbouring sector to place an influence marker.`,
  st1d:`${W}: Choose the die colour for this sector.`,
  st2:`${W}: Steering. ${n} pip${pl} left. Tap dice, or ＋ slots, on sectors with markers.`,
- ig1:`${W}: Intrigue. Tap an influence marker to relocate.`,pp:`${W}: The small pyramids move into your popularity pool.`,ch:`${W}: Choose how to use your medium pyramid: basic or advanced action.`,ig0:`${W}: Turn complete. Play your Intrigue before ending it?`,ig2:`${W}: Tap another sector that already has a marker to move it there.`,over:S.res})[S.ph]||''}
+ ig1:`${W}: Intrigue. Tap an influence marker to relocate.`,ad:`${W}: Action complete.`,igd:`${W}: Intrigue complete.`,pp:`${W}: The small pyramids move into your popularity pool.`,ch:`${W}: Choose how to use your medium pyramid: basic or advanced action.`,ig0:`${W}: Turn complete. Play your Intrigue before ending it?`,ig2:`${W}: Tap another sector that already has a marker to move it there.`,over:S.res})[S.ph]||''}
 function ui(){let tr='',bt='';if(RP){$('msg').textContent=`Replaying move ${RP.n}…`;$('tray').innerHTML='';$('btns').innerHTML='<button class="btn pri" data-k="x" data-a="rpx">Stop replay</button>';return}const B=(l,k,c='')=>`<button class="btn ${c}" data-k="x" data-a="${k}">${l}</button>`;
- if(S.ph==='move'){tr=grp(mv.hand).map(x=>chip(x,mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s)).join('');bt=(mv.placed.length?B('Undo','undo'):'')+B('Cancel','cancel')}
- else if(S.ph==='pick'&&S.opt.ig&&!S.ig[S.cur]&&S.sup>0&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1)bt=B('Intrigue','ig');
+ if(S.ph==='move'){tr=handHTML();bt=(mv.placed.length?B('Undo','undo'):'')+B('Cancel','cancel')}
+ else if(S.ph==='pick'&&S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1)bt=B('Intrigue','ig');
  else if(S.ph==='ch')bt=B(({b:'Spanning',r:'Silencing',g:'Seeding'})[a.c],'basic','pri')+B(({b:'Spanning II',r:'Silencing II',g:'Steering'})[a.c],'adv');
  else if(S.ph==='ig0')bt=B('Play Intrigue','ig','pri')+B('End turn','fin');
  else if(S.ph==='ig1'||S.ph==='ig2')bt=B('Cancel','igx');
- else if(S.ph==='confirm')bt=B('Confirm move','ok','pri')+B('Undo','undo');
+ else if(S.ph==='confirm'){tr=handHTML();bt=B('Confirm move','ok','pri')+B('Undo','undo')}
  else if(S.ph==='seed')tr=avail().map(x=>chip(x,a.sel&&x.c===a.sel.c&&x.s===a.sel.s)).join('');
  else if(S.ph==='pd'||S.ph==='st1d')tr=C.filter(c=>S.dice[c]).map(c=>`<button class="chip" data-k="dc" data-c="${c}"><b class="die ${c}">1</b> ${NM[c]}</button>`).join('');
  else if(S.ph==='sil2'||S.ph==='st2')bt=B('Done','done');
@@ -222,16 +237,16 @@ function ui(){let tr='',bt='';if(RP){$('msg').textContent=`Replaying move ${RP.n
  if(UH.length&&ACT.includes(S.ph))bt+=B('Undo','uundo');
  $('msg').innerHTML=(NET&&S.cur!==ME&&S.ph!=='over'?'<i>Opponent’s turn. </i>':'')+msg();$('tray').innerHTML=tr;$('btns').innerHTML=bt;
  aiGo();if(NET&&!rec&&(Tx||S.cur===ME||S.ph==='over'))sendSoon()}
-function startMove(i){const t=S.t[i],hand=[];C.forEach(c=>['S','M'].forEach(s=>{for(let k=0;k<t.p[c][s];k++)hand.push({c,s});t.p[c][s]=0}));mv={o:i,hand,sel:null,path:[i],placed:[],loop:null};S.ph='move'}
-function place(x){const k=mv.sel;mv.hand.splice(mv.hand.findIndex(h=>h.c===k.c&&h.s===k.s),1);S.t[x].p[k.c][k.s]++;
+function startMove(i){S.itg=null;const t=S.t[i],hand=[];C.forEach(c=>['S','M'].forEach(s=>{for(let k=0;k<t.p[c][s];k++)hand.push({c,s});t.p[c][s]=0}));mv={o:i,hand,sel:null,path:[i],placed:[],loop:null};S.ph='move'}
+function place(x){mv.sw=null;const k=mv.sel;mv.hand.splice(mv.hand.findIndex(h=>h.c===k.c&&h.s===k.s),1);S.t[x].p[k.c][k.s]++;
  mv.placed.push({x,k:{...k},path:[...mv.path],loop:mv.loop&&{cyc:mv.loop.cyc,i:mv.loop.i}});
  const i=mv.path.indexOf(x);
  if(mv.loop)mv.loop.i++;else if(i>=0)mv.loop={cyc:mv.path.slice(i+1).concat(mv.path[i]),i:0};
  mv.path.push(x);if(!mv.hand.length)S.ph='confirm'}
-function undo(){const q=mv.placed.pop();S.t[q.x].p[q.k.c][q.k.s]--;mv.hand.push(q.k);mv.path=q.path;mv.loop=q.loop;mv.sel={...q.k};S.ph='move'}
+function undo(){mv.sw=null;const q=mv.placed.pop();S.t[q.x].p[q.k.c][q.k.s]--;mv.hand.push(q.k);mv.path=q.path;mv.loop=q.loop;mv.sel={...q.k};S.ph='move'}
 function commit(){const q=mv.placed[mv.placed.length-1],t=S.t[q.x],k=q.k,n=t.p[k.c][k.s];
  if(k.s==='S'){S.pop[S.cur][k.c]+=n;t.p[k.c].S=0}
- S.log.push({p:S.cur,t:`Move: ${[mv.o,...mv.placed.map(z=>z.x)].map(nm).join('→')} · ${k.s==='S'?'small':'medium'} ${NM[k.c]} ×${n}`,k:'m'});a={x:q.x,n,left:n,sel:null,c:k.c};mv=null;if(k.s==='M'){S.ph='ch';return}lg(' → popularity pool');S.pg={p:S.cur,c:k.c,n};S.ph='pp';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='pp'&&a){S.pg=null;Tx=1;begin(0);render();Tx=0}},1100)}
+ S.log.push({p:S.cur,t:`Move: ${[mv.o,...mv.placed.map(z=>z.x)].map(nm).join('→')} · ${k.s==='S'?'small':'medium'} ${NM[k.c]} ×${n}`,k:'m'});a={x:q.x,n,left:n,sel:null,c:k.c};mv=null;if(k.s==='M'){S.ph='ch';return}lg(' → popularity pool');S.pg={p:S.cur,c:k.c,n};S.ph='pp';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='pp'&&a){S.pg=null;Tx=1;begin(0);render();Tx=0}},1400)}
 function begin(adv){const k={c:a.c};S.log.push({p:S.cur,k:'a',t:`${(adv?{b:'Spanning II',r:'Silencing II',g:'Steering'}:{b:'Spanning',r:'Silencing',g:'Seeding'})[k.c]}:`});a.li=S.log.length-1;
  if(k.c==='b'){if(adv)S.ph='sw1';else{score();return after()}}
  else if(k.c==='r')S.ph=adv?'sil2':'sil';
@@ -246,7 +261,7 @@ function auto(){const A=adj(a.x);let dead=false;
  if(dead)endTurn()}
 const score=()=>{const o=S.vp[0]+S.vp[1];const pt=adj(a.x).filter(y=>hasB(S.t[y])).length*a.n;S.vp[S.cur]+=pt;lg(` +${pt} VP.`);if(S.opt.mob)a.mob=3*(((S.vp[0]+S.vp[1])/10|0)-(o/10|0))};
 function after(){if(a.mob){lg(` Mobilisation: +${a.mob} pyramids.`);a.left=a.mob;a.any=true;a.mob=0;a.sel=null;S.ph='seed';auto();render()}else endTurn()}
-let tm,NET=null,ME=0,rec=0,FL=0,Tx=0,AP=[],Q=[],qt=0,et=0,UH=[],FR=[],LJ='',RP=0,ST=1,sv=0,NETM='',NETC='';const ACT=['sw1','sw2','sil','sil2','seed','st1','st1d','st2'];const flip=()=>((NET?ME===1:S.ai<0&&S.cur===1)?1:0)^FL;
+let tm,NET=null,ME=0,rec=0,FL=0,Tx=0,AP=[],Q=[],qt=0,et=0,UH=[],FR=[],LJ='',RP=0,ST=1,sv=0,NETM='',NETC='',NG=0;const ACT=['sw1','sw2','sil','sil2','seed','st1','st1d','st2'];const flip=()=>((NET?ME===1:S.ai<0&&S.cur===1)?1:0)^FL;
 function search(first){const out=[];let nodes=0;
  for(let o=0;o<9;o++){if(!tot(S.t[o]))continue;nodes=0;startMove(o);const seq=[];
   (function dfs(){if(nodes++>(first===2?20000:2500)||(first===1&&out.length)||(first===2&&out.some(q=>q.o===o)))return;
@@ -256,12 +271,12 @@ function search(first){const out=[];let nodes=0;
   mv.hand.forEach(h=>S.t[o].p[h.c][h.s]++);mv=null}
  S.ph='pick';return out}
 const pk=(l,f)=>l.map(x=>[x,f(x)+Math.random()]).sort((p,q)=>q[1]-p[1])[0][0];
-function aiGo(){clearTimeout(tm);if(S.ai!==S.cur||S.ph==='over')return;tm=setTimeout(aiStep,S.ph==='pick'?1000:900)}
-function aiStep(){if(RP||S.ai!==S.cur||S.ph==='over')return;const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
+function aiGo(){clearTimeout(tm);if(S.ai!==S.cur||S.ph==='over')return;tm=setTimeout(aiStep,S.ph==='pick'?1500:1400)}
+function aiStep(){if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
  if(ph==='pick'){const c=search();if(!c.length)return finish();c.sort((x,y)=>y.v-x.v);const b=c[0];startMove(b.o);AP=b.seq;return render()}
  if(ph==='move'){const[c2,s,x]=AP.shift();mv.sel={c:c2,s};place(x);return render()}
  if(ph==='confirm'){commit();return render()}
- if(ph==='pp')return;
+ if(ph==='pp'||ph==='ad')return;
  if(ph==='ch'){const c=a.c,A=adj(a.x);begin(c==='b'||(c==='r'?A.some(j=>C.some(k=>S.t[j].d[k])):S.sup>0)?1:0);return render()}
  if(ph==='pd'||ph==='st1d')return setDie(pk(C.filter(c=>S.dice[c]),()=>0));
  if(ph==='seed'){const av=avail();if(!av.length||!H.length)return endTurn();a.sel=pk(av,()=>0);const v=a.sel;a.sel={c:v.c,s:v.s};return onTile(pk(H,i=>T[i].m[me]*2))}
@@ -280,16 +295,16 @@ function peerNet(code,me){return loadPeer().then(()=>new Promise((ok,no)=>{
  p.on('open',()=>{
   if(me===0){p.on('connection',c=>{bind(c);c.on('open',()=>h.hi&&h.hi())});ok(net)}
   else{const c=p.connect(id,{reliable:true});bind(c);c.on('open',()=>ok(net));setTimeout(no,12000)}})}))}
-function drain(){if(qt||!Q.length)return;if(RP){qt=setTimeout(()=>{qt=0;drain()},400);return}const d=Q.shift();S=d.S;mv=d.mv;a=d.a;rec=1;render();rec=0;qt=setTimeout(()=>{qt=0;drain()},Q.length>6?150:700)}
-function replay(i){const k=S.log[i].k,L=FR.filter(f=>f.id===i),nx=FR.find(f=>f.id>i);if(k==='a'){const pv=FR.filter(f=>f.id===i-1).pop();if(pv)L.unshift(pv)}if(k!=='m'&&nx)L.push(nx);if(!L.length)return;
+function drain(){if(qt||!Q.length)return;if(RP){qt=setTimeout(()=>{qt=0;drain()},400);return}const d=Q.shift();S=d.S;mv=d.mv;a=d.a;rec=1;render();rec=0;qt=setTimeout(()=>{qt=0;drain()},Q.length>6?300:1200)}
+function replay(i){const k=S.log[i].k;let st=FR.findIndex(f=>f.id===i);if(k==='a'){const pv=FR.map(f=>f.id).lastIndexOf(i-1);if(pv>=0)st=pv}if(st<0)return;const L=FR.slice(st);
  RP={n:i+1,sv:{S,mv,a},t:[]};
- L.forEach((f,k)=>RP.t.push(setTimeout(()=>{const o=JSON.parse(f.js);o.S.log=RP.sv.S.log;S=o.S;mv=o.mv;a=o.a;render()},k*800)));
- RP.t.push(setTimeout(stopRp,L.length*800+1000))}
+ L.forEach((f,k)=>RP.t.push(setTimeout(()=>{const o=JSON.parse(f.js);o.S.log=RP.sv.S.log;S=o.S;mv=o.mv;a=o.a;RP.n=f.id+1;render()},k*1200)));
+ RP.t.push(setTimeout(stopRp,L.length*1200+1200))}
 function stopRp(){if(!RP)return;RP.t.forEach(clearTimeout);const v=RP.sv;RP=0;S=v.S;mv=v.mv;a=v.a;render()}
 function save(){try{if(!$('menu').hidden||RP)return;if(S.ph==='over'){localStorage.removeItem('nxs');return}const o={S,mv,a,LJ,ST,FL,m:NETM,code:NETC};try{localStorage.setItem('nxs',JSON.stringify({...o,FR}))}catch(e){localStorage.setItem('nxs',JSON.stringify(o))}}catch(e){}}
 function boot(){let d=null;try{d=JSON.parse(localStorage.getItem('nxs'))}catch(e){}init();
- if(d&&d.S&&d.S.ph!=='over'){S=d.S;mv=d.mv;a=d.a;FR=d.FR||[];LJ=d.LJ||'';ST=d.ST===0?0:1;FL=d.FL||0;NETM=d.m||'';NETC=d.code||'';$('menu').hidden=true;
-  if(S.ph==='pp'&&a){S.pg=null;begin(0)}
+ if(d&&d.S&&d.S.ph!=='over'){S=d.S;S.bz=0;mv=d.mv;a=d.a;FR=d.FR||[];LJ=d.LJ||'';ST=d.ST===0?0:1;FL=d.FL||0;NETM=d.m||'';NETC=d.code||'';$('menu').hidden=true;
+  if(S.ph==='pp'&&a){S.pg=null;begin(0)}if(S.ph==='ad')endTurn();if(S.ph==='igd')endTurn2();
   if(NETM[0]==='n')start(NETM,NETC,1);else render()}}
 function sendSoon(){clearTimeout(et);et=setTimeout(()=>NET&&NET.emit('st',JSON.stringify({S,mv,a})),0)}
 async function start(m,rc,resume){NET=null;if(!resume){init();S.opt={mob:+$('omob').checked,ig:+$('oig').checked};S.ai=m==='ai'?1:-1}$('menu').hidden=true;NETM=m;
@@ -301,8 +316,8 @@ async function start(m,rc,resume){NET=null;if(!resume){init();S.opt={mob:+$('omo
   NET.on('hi',()=>{if(ME===0)NET.emit('st',JSON.stringify({S,mv,a}))});
   if(ME===1)NET.emit('hi',1)}
  render()}
-function endTurn(){mv=a=null;UH=[];if(S.ai!==S.cur&&S.opt.ig&&!S.ig[S.cur]&&S.sup>0&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1){S.ph='ig0';return render()}return endTurn2()}
-function endTurn2(){mv=a=null;
+function endTurn(){if(a&&S.ph!=='ad'&&!RP){S.ph='ad';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='ad'){Tx=1;endTurn();Tx=0}},1200);return render()}mv=a=null;UH=[];if(S.ai!==S.cur&&S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1){S.ph='ig0';return render()}return endTurn2()}
+function endTurn2(){mv=a=null;S.itg=null;
  if(S.fin){S.fin=false;if(S.sup===0)return finish()}
  if(S.sup===0)S.fin=true;
  S.cur=1-S.cur;S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))];if(!S.lg.length)return finish();render()}
@@ -312,25 +327,25 @@ function finish(){S.ph='over';const R=[0,1].map(()=>({m:0,c:0}));
  const cmp=(f)=>f(0)===f(1)?-1:f(0)>f(1)?0:1;
  S.tot=T;let w=cmp(p=>T[p]);if(w<0)w=cmp(mk);if(w<0)w=cmp(pp);
  S.res=[0,1].map(p=>`<span class="w p${p}">Player ${p+1}</span>: <b>${T[p]}</b> (Spanning ${S.vp[p]} + sectors ${R[p].m} + popularity ${R[p].c})`).join('<br>')+'<br>'+(w<0?'<b>A draw.</b>':`<b class="w p${w}">Player ${w+1} takes the galaxy.</b>`);render()}
-function onTile(i){if(!hlSet().has(i))return;const t=S.t[i],ph=S.ph;
+function onTile0(i){if(!hlSet().has(i))return;const t=S.t[i],ph=S.ph;
  if(ph==='pm'){t.m[S.cur]++;S.sup--;S.pi=i;S.ph='pd'}
  else if(ph==='pick')startMove(i);
- else if(ph==='ig2'){const g=S.igs,s=S.t[g.i];s.m[g.p]--;t.m[g.p]++;if(!hasM(s))C.forEach(c=>{S.dice[c]+=s.d[c];s.d[c]=0});C.forEach(c=>{S.pop[S.cur][c]--;S.pool[c].S++});S.log.push({p:S.cur,k:'i',t:`Intrigue: marker moved ${nm(g.i)} → ${nm(i)}.`});S.ig[S.cur]=1;if(S.igEnd){S.igEnd=0;return endTurn2()}S.ph='pick'}
+ else if(ph==='ig2'){const g=S.igs,s=S.t[g.i];s.m[g.p]--;t.m[g.p]++;if(!hasM(s))C.forEach(c=>{S.dice[c]+=s.d[c];s.d[c]=0});C.forEach(c=>{S.pop[S.cur][c]--;S.pool[c].S++});S.log.push({p:S.cur,k:'i',t:`Intrigue: marker moved ${nm(g.i)} → ${nm(i)}.`});S.ig[S.cur]=1;S.itg={p:S.cur,mk:['m:'+i+':'+g.p,'r:b:S','r:r:S','r:g:S']};if(S.igEnd){S.igEnd=0;S.ph='igd';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='igd'){Tx=1;endTurn2();Tx=0}},1400);return render()}S.ph='pick'}
  else if(ph==='move')place(i);
  else if(ph==='sw1'){a.u=i;S.ph='sw2'}
  else if(ph==='sw2'){lg(` Swapped ${nm(a.u)} and ${nm(i)}.`);(a.tg=a.tg||[]).push(a.u,i);[S.t[a.u],S.t[i]]=[S.t[i],S.t[a.u]];score();return after()}
  else if(ph==='seed'){const v=avail().find(x=>x.c===a.sel.c&&x.s===a.sel.s);if(!v)return;
-  if(v.src==='pool')S.pool[v.c][v.s]--;else S.pop[v.src][v.c]--;t.p[v.c][v.s]++;a.left--;lg(` ${NM[v.c]} ${v.s==='S'?'small':'medium'} to ${nm(i)}.`);(a.tg=a.tg||[]).push(i);if(a.left<=0||!avail().length)return endTurn()}
- else if(ph==='st1'){const had=hasM(t);t.m[S.cur]++;S.sup--;a.si=i;lg(` Marker at ${nm(i)}.`);if(!had&&C.some(c=>S.dice[c]>0))S.ph='st1d';else{S.ph='st2';auto()}}
+  if(v.src==='pool')S.pool[v.c][v.s]--;else S.pop[v.src][v.c]--;t.p[v.c][v.s]++;a.left--;lg(` ${NM[v.c]} ${v.s==='S'?'small':'medium'} to ${nm(i)}.`);(a.mk=a.mk||[]).push('p:'+i+':'+v.c+':'+v.s);if(a.left<=0||!avail().length)return endTurn()}
+ else if(ph==='st1'){const had=hasM(t);t.m[S.cur]++;S.sup--;a.si=i;lg(` Marker at ${nm(i)}.`);(a.mk=a.mk||[]).push('m:'+i+':'+S.cur);if(!had&&C.some(c=>S.dice[c]>0))S.ph='st1d';else{S.ph='st2';auto()}}
  render()}
-function onPyr(i,c,s){if(S.ph==='sil'&&adj(a.x).includes(i)){S.t[i].p[c][s]--;S.pool[c][s]++;a.left--;lg(` Removed ${NM[c]} ${s==='S'?'small':'medium'} at ${nm(i)}.`);(a.tg=a.tg||[]).push(i);if(a.left<=0||!adj(a.x).some(j=>tot(S.t[j])))return endTurn();render()}else onTile(i)}
-function onDie(i,c){const t=S.t[i],ok=a&&adj(a.x).includes(i);
- if(S.ph==='sil2'&&ok){t.d[c]--;a.left--;lg(` -1 ${NM[c]} die at ${nm(i)}.`);if(!t.d[c]){S.dice[c]++;if(!C.some(k=>t.d[k])){S.sup+=t.m[0]+t.m[1];t.m=[0,0]}}
+function onPyr0(i,c,s){if(S.ph==='sil'&&adj(a.x).includes(i)){S.t[i].p[c][s]--;S.pool[c][s]++;a.left--;lg(` Removed ${NM[c]} ${s==='S'?'small':'medium'} at ${nm(i)}.`);(a.mk=a.mk||[]).push('r:'+c+':'+s);if(a.left<=0||!adj(a.x).some(j=>tot(S.t[j])))return endTurn();render()}else onTile(i)}
+function onDie0(i,c){const t=S.t[i],ok=a&&adj(a.x).includes(i);
+ if(S.ph==='sil2'&&ok){t.d[c]--;a.left--;lg(` -1 ${NM[c]} die at ${nm(i)}.`);(a.mk=a.mk||[]).push(t.d[c]?'d:'+i+':'+c:'q:'+c);if(!t.d[c]){S.dice[c]++;if(!C.some(k=>t.d[k])){S.sup+=t.m[0]+t.m[1];t.m=[0,0]}}
   if(a.left<=0||!adj(a.x).some(j=>C.some(k=>S.t[j].d[k])))return endTurn();render()}
  else if(S.ph==='st2'&&ok&&hasM(t)&&a.left>0){if(t.d[c]){if(t.d[c]>=6)return;t.d[c]++}else{if(!S.dice[c])return;S.dice[c]--;t.d[c]=1}
-  a.left--;lg(` +1 ${NM[c]} die at ${nm(i)}.`);if(!stOpts())return endTurn();render()}
+  a.left--;lg(` +1 ${NM[c]} die at ${nm(i)}.`);(a.mk=a.mk||[]).push('d:'+i+':'+c);if(!stOpts())return endTurn();render()}
  else onTile(i)}
-function setDie(c){const t=S.t[S.ph==='pd'?S.pi:a.si];S.dice[c]--;t.d[c]=1;if(S.ph==='pd')S.log.push({p:S.cur,k:'p',t:`Prologue: marker and ${NM[c]} die at ${nm(S.pi)}.`});else lg(` Die: ${NM[c]}.`);
+function setDie0(c){const t=S.t[S.ph==='pd'?S.pi:a.si];S.dice[c]--;t.d[c]=1;if(S.ph==='pd')S.log.push({p:S.cur,k:'p',t:`Prologue: marker and ${NM[c]} die at ${nm(S.pi)}.`});else{lg(` Die: ${NM[c]}.`);(a.mk=a.mk||[]).push('d:'+a.si+':'+c)}
  if(S.ph==='pd'){if(S.pro===0){S.first=S.pi;S.pro=1;S.cur=1;S.ph='pm'}else{S.cur=0;S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))]}}
  else{a.left--;S.ph='st2';auto()}
  render()}
@@ -348,11 +363,33 @@ function act(k){
  else if(k==='fin')return endTurn2();
  render()}
 document.addEventListener('click',e=>{const el=e.target.closest('[data-k]');if(!el)return;const d=el.dataset,i=+d.i;
- if(d.k==='go')return start(d.m);if(d.k==='x'&&d.a==='rpx')return stopRp();if(d.k==='x'&&d.a==='newg'){if(confirm('Start a new game? The current game will be lost.')){try{localStorage.removeItem('nxs')}catch(e){}$('menu').hidden=false}return}if(d.k==='x'&&(d.a==='stk'||d.a==='flip')){if(d.a==='stk')ST^=1;else FL^=1;return render()}if(d.k==='h')return RP?0:replay(+d.i);if(RP)return;if(S.ph==='over'&&d.k!=='x')return;if(NET&&S.cur!==ME&&S.ph!=='over')return;Tx=1;setTimeout(()=>{Tx=0});const tr=ACT.includes(S.ph)&&d.k!=='chip'&&d.k!=='x',pre=tr?JSON.stringify({S,a}):0;
- if(d.k==='t')onTile(i);else if(d.k==='p')onPyr(i,d.c,d.s);else if(d.k==='d')onDie(i,d.c);
- else if(d.k==='chip'){if(S.ph==='move')mv.sel={c:d.c,s:d.s};else a.sel={c:d.c,s:d.s};render()}
+ if(d.k==='go')return start(d.m);if(d.k==='x'&&d.a==='rpx')return stopRp();if(d.k==='x'&&d.a==='newg'){if(Date.now()-NG<3000){NG=0;try{localStorage.removeItem('nxs')}catch(e){}$('menu').hidden=false}else{NG=Date.now();setTimeout(render,3100)}render();return}if(d.k==='x'&&(d.a==='stk'||d.a==='flip')){if(d.a==='stk')ST^=1;else FL^=1;return render()}if(d.k==='h')return RP?0:replay(+d.i);if(RP||S.bz||(S.ai===S.cur&&S.ph!=='over'))return;if(S.ph==='over'&&d.k!=='x')return;if(NET&&S.cur!==ME&&S.ph!=='over')return;Tx=1;setTimeout(()=>{Tx=0});const tr=ACT.includes(S.ph)&&d.k!=='chip'&&d.k!=='x',pre=tr?JSON.stringify({S,a}):0;
+ if(d.k==='t')onTile(i);else if(d.k==='p')onPyr(i,d.c,d.s);else if(d.k==='d')onDie(i,d.c);else if(d.k==='pp')swapClick(+d.j);
+ else if(d.k==='chip'){if(S.ph==='move'&&mv.sw!=null)swapHand(mv.sw,d.c,d.s);else if(S.ph==='move')mv.sel={c:d.c,s:d.s};else a.sel={c:d.c,s:d.s};render()}
  else if(d.k==='dc')setDie(d.c);else if(d.k==='x')act(d.a);
  else if(d.k==='m'){if(S.ph==='ig1'){S.igs={i,p:+d.p};S.ph='ig2';render()}else onTile(i)}
  if(tr){if(ACT.includes(S.ph)){if(JSON.stringify({S,a})!==pre)UH.push(pre)}else UH=[];ui()}});
+function swapClick(j){if(!mv||(S.ph!=='confirm'&&S.ph!=='move'))return;mv.warn=0;if(mv.sw==null)mv.sw=j;else if(mv.sw===j)mv.sw=null;else{doSwap(mv.sw,j);mv.sw=null}render()}
+function doSwap(p1,p2){const A=mv.placed[p1],B=mv.placed[p2];if(A.k.c===B.k.c&&A.k.s===B.k.s)return;
+ const sw=()=>{S.t[A.x].p[A.k.c][A.k.s]--;S.t[B.x].p[B.k.c][B.k.s]--;const t=A.k;A.k=B.k;B.k=t;S.t[A.x].p[A.k.c][A.k.s]++;S.t[B.x].p[B.k.c][B.k.s]++};
+ sw();const L=mv.placed[mv.placed.length-1],T=S.t[L.x];if(!mv.hand.length&&!(T.p[L.k.c][L.k.s]-1>0||T.d[L.k.c]>0)){sw();mv.warn=1}}
+function swapHand(j,c,s){const q=mv.placed[j];mv.sw=null;if(!q)return;const k=q.k;if(k.c===c&&k.s===s)return;const h=mv.hand.findIndex(x=>x.c===c&&x.s===s);if(h<0)return;
+ S.t[q.x].p[k.c][k.s]--;mv.hand.splice(h,1);mv.hand.push({c:k.c,s:k.s});q.k={c,s};S.t[q.x].p[c][s]++}
+const handHTML=()=>mv&&(S.ph==='move'||S.ph==='confirm')?`<div class="hh">In hand · ${mv.hand.length} left</div><div class="hp">${grp(mv.hand).map(x=>`<button class="hi${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${pyr(x.c,x.s,x.n)}<span>${NM[x.c]} ${x.s==='S'?'small':'medium'}</span></button>`).join('')||'All pyramids placed.'}</div>`:'';
+const unmk=k=>{if(!a||!a.mk)return;const j=a.mk.indexOf(k);if(j>=0)a.mk.splice(j,1)};
+function stg(m,fn){a.mk=(a.mk||[]).concat(m);S.bz=1;render();setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.bz){S.bz=0;Tx=1;fn();Tx=0}},400)}
+function onPyr(i,c,s){if(S.bz)return;if(S.ph==='sil'&&adj(a.x).includes(i)&&S.t[i].p[c][s]>0){const k='p:'+i+':'+c+':'+s;return stg([k],()=>{unmk(k);onPyr0(i,c,s)})}onPyr0(i,c,s)}
+function onDie(i,c){if(S.bz)return;const t=S.t[i];
+ if(S.ph==='sil2'&&adj(a.x).includes(i)&&t.d[c]){const gone=t.d[c]===1,mrk=gone&&!C.some(k=>k!==c&&t.d[k]),m=['d:'+i+':'+c];if(mrk)[0,1].forEach(p=>{if(t.m[p])m.push('m:'+i+':'+p)});
+  return stg(m,()=>{m.forEach(x=>unmk(x));if(mrk)a.mk.push('s');onDie0(i,c)})}
+ if(S.ph==='st2'&&a.left>0&&adj(a.x).includes(i)&&hasM(t)&&!t.d[c]&&S.dice[c]>0)return stg(['q:'+c],()=>{unmk('q:'+c);onDie0(i,c)});
+ onDie0(i,c)}
+function setDie(c){if(S.ph==='st1d'&&!S.bz)return stg(['q:'+c],()=>{unmk('q:'+c);setDie0(c)});setDie0(c)}
+function onTile(i){if(S.bz)return;const ph=S.ph;
+ if(ph==='seed'&&hlSet().has(i)){const v=avail().find(x=>x.c===a.sel.c&&x.s===a.sel.s);if(v){const k=v.src==='pool'?'r:'+v.c+':'+v.s:'o:'+v.src+':'+v.c;return stg([k],()=>{unmk(k);onTile0(i)})}}
+ if(ph==='st1'&&hlSet().has(i))return stg(['s'],()=>{unmk('s');onTile0(i)});
+ if(ph==='sw2'&&hlSet().has(i)){a.tg=(a.tg||[]).concat([a.u,i]);return stg([],()=>{a.tg.splice(-2,2);onTile0(i)})}
+ if(ph==='ig2'&&hlSet().has(i)){const g=S.igs;S.itg={p:S.cur,mk:['m:'+g.i+':'+g.p,'o:'+S.cur+':b','o:'+S.cur+':r','o:'+S.cur+':g']};S.bz=1;render();return setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.bz){S.bz=0;Tx=1;onTile0(i);Tx=0}},400)}
+ onTile0(i)}
 boot();
 </script></body></html>
