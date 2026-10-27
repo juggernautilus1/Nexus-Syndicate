@@ -329,6 +329,8 @@ html.lc #mapctl{left:calc(var(--lw) + 12px)}
 <div id="ctl"></div><div id="mapctl"></div><div id="left"><button id="lt" type="button" title="Collapse the side panel" aria-label="Collapse the side panel"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M7.5 2 3.5 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h1 id="ttl">NEXUS<small>SYNDICATE</small></h1><div id="lside"><div id="nav"><button class="chip" data-k="nv" data-a="first" title="Back to the first move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><rect x="1.5" y="1.5" width="1.7" height="9" fill="currentColor"/><polygon points="10.5,1.5 10.5,10.5 4.5,6" fill="currentColor"/></svg></button><button class="chip" data-k="nv" data-a="prev" title="End result of the previous move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M8 1.8 3.8 6 8 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="play" title="Play back from the selected move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="3,1.5 10.5,6 3,10.5" fill="currentColor"/></svg></button><button class="chip" data-k="nv" data-a="next" title="End result of the next move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M4 1.8 8.2 6 4 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="last" title="Back to the latest position"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="1.5,1.5 1.5,10.5 7.5,6" fill="currentColor"/><rect x="8.8" y="1.5" width="1.7" height="9" fill="currentColor"/></svg></button></div><div id="info"></div><div id="plr"></div><div id="hist"></div></div></div><div id="pane"><div id="wrap"><div id="bar"><div id="msg"></div><div id="tray"></div><div id="btns"></div><div id="undo"></div></div><div id="main"><div id="board"></div></div></div></div>
 <div id="menu"><h1>NEXUS<small>SYNDICATE</small></h1><div class="gap"></div><div class="opt"><label><input type="checkbox" id="omob" checked> Mobilisation (optional rule)</label><button class="inf" data-k="inf" data-a="mob" title="Information">i</button></div><small id="s_mob" hidden>Whenever the combined Spanning score passes a multiple of 10, the acting player takes 3 pyramids (recruitment pool first, then the popularity pools) and places them on any sectors. Passing two multiples at once gives 6.</small><div class="opt"><label><input type="checkbox" id="oig" checked> Intrigue (optional rule)</label><button class="inf" data-k="inf" data-a="ig" title="Information">i</button></div><small id="s_ig" hidden>Once per game, at the start or end of your turn, you may move any one influence marker to another sector that already has a marker. This needs one pyramid of each colour in your popularity pool, which go to the recruitment pool.</small><div class="gap"></div><button class="btn" data-k="sp" data-a="open">Play the computer</button><div id="m2"><div>Play as</div><div class="row"><button class="btn" data-k="go" data-m="ai0">Player 1</button><button class="btn" data-k="go" data-m="ai1">Player 2</button><button class="btn" data-k="go" data-m="air">Random</button></div><button class="btn back" data-k="sp" data-a="back">Back</button></div><button class="btn" data-k="go" data-m="hot">Two Players, One Screen</button><button class="btn" data-k="sp" data-a="room">Online</button><div id="m3"><div>Room key</div><div class="small">Both players enter the same key.</div><input type="text" id="code" placeholder="room key" maxlength="12"><button class="btn" data-k="sp" data-a="oseat">Continue</button><button class="btn back" data-k="sp" data-a="back">Back</button></div><div id="m4"><div>Play as</div><div class="small">Player 1 starts the game, Player 2 joins with the same key. The game is saved: you can take your turn whenever you like and come back later with the same key.</div><div class="row"><button class="btn" data-k="go" data-m="n0">Player 1</button><button class="btn" data-k="go" data-m="n1">Player 2</button></div><button class="btn back" data-k="sp" data-a="room">Back</button></div></div>
 <script>
+let SIM=0,SIMD=0,PLANX=null;
+const _stm=window.setTimeout;window.setTimeout=function(f,d,...r){if(SIM)return 0;if(window.HEADLESS){f();return 0}return _stm.call(window,f,d,...r)};
 const C=['b','r','g'],NM={b:'blue',r:'red',g:'green'},$=id=>document.getElementById(id);
 const adj=i=>{const x=i%3,y=i/3|0,a=[];x>0&&a.push(i-1);x<2&&a.push(i+1);y>0&&a.push(i-3);y<2&&a.push(i+3);return a};
 const E=()=>({b:{S:0,M:0},r:{S:0,M:0},g:{S:0,M:0}});
@@ -366,6 +368,7 @@ function hlSet(){const s=new Set(),add=l=>l.forEach(x=>s.add(x)),all=[0,1,2,3,4,
  case'st2':add(A.filter(i=>hasM(S.t[i])));break}
  return s}
 function render(){
+ if(window.HEADLESS||SIM)return;
  if(!RP){const id=['pm','pd','pick','move','confirm','ig1','ig2'].includes(S.ph)?S.log.length:S.log.length-1,js=JSON.stringify({S:{...S,log:0},mv,a});if(js!==LJ){LJ=js;FR.push({id,js})}clearTimeout(sv);sv=setTimeout(save,300)}
  if(mv&&!mv.hand.some(h=>mv.sel&&h.c===mv.sel.c&&h.s===mv.sel.s))mv.sel=mv.hand[0]?{c:mv.hand[0].c,s:mv.hand[0].s}:null;
  if(S.ph==='seed'){const av=avail();if(av.length&&!av.some(x=>a.sel&&x.c===a.sel.c&&x.s===a.sel.s))a.sel={c:av[0].c,s:av[0].s}}
@@ -417,7 +420,7 @@ function ui(){$('nav').innerHTML=navHTML();let tr='',bt='',un='';const B=(l,k,c=
  else if(S.ph==='over')bt=B('Play again','new','pri');
  if(S.ph!=='over'){const can=UH.length&&S.ai!==S.cur&&!S.bz;un=`<button class="chip" data-k="x" data-a="uundo"${can?'':' disabled'}>Undo</button><button class="chip" data-k="x" data-a="urst" title="Restart your turn from the beginning"${can?'':' disabled'}>Restart turn</button>`}
  $('msg').innerHTML=(NET&&NET.wait?'<i>Waiting for Player 1 to start the game. </i>':NET&&S.cur!==ME&&S.ph!=='over'?'<i>Opponent’s turn. </i>':'')+msgBox();$('tray').innerHTML=tr;{const ex=[];bt=bt.replace(/<button[^>]*data-a="(?:ig|fin|fin2)"[^>]*>.*?<\/button>/g,m=>{ex.push(m);return ''});un=ex.join('')+un}$('btns').innerHTML=bt;$('undo').innerHTML=un;
- aiGo();try{document.title=(NET&&NET.async&&S.cur===ME&&S.ph!=='over'?'\u25cf Your turn \u2013 ':'')+'Nexus Syndicate'}catch(e){}if(NET&&!rec&&!RP&&(Tx||S.cur===ME||S.ph==='over'))sendSoon()}
+ aiGo();try{document.title=(NET&&NET.async&&S.cur===ME&&S.ph!=='over'?'\u25cf Your turn \u2013 ':'')+'Nexus Syndicate'}catch(e){}if(NET&&!NET.wait&&!rec&&!RP&&(Tx||S.cur===ME||S.ph==='over'))sendSoon()}
 function startMove(i){S.itg=null;const t=S.t[i],hand=[];C.forEach(c=>['S','M'].forEach(s=>{for(let k=0;k<t.p[c][s];k++)hand.push({c,s});t.p[c][s]=0}));mv={o:i,hand,sel:null,path:[i],placed:[],loop:null};S.ph='move'}
 function place(x){mv.sw=null;mv.hs=null;const k=mv.sel;mv.hand.splice(mv.hand.findIndex(h=>h.c===k.c&&h.s===k.s),1);S.t[x].p[k.c][k.s]++;
  mv.placed.push({x,k:{...k},path:[...mv.path],loop:mv.loop&&{cyc:mv.loop.cyc,i:mv.loop.i}});
@@ -458,7 +461,7 @@ function igBest(me){if(!S.opt.ig||S.ig[me]||!C.every(c=>S.pop[me][c]>0)||S.t.fil
  S.t.forEach((t,i)=>[0,1].forEach(p=>{if(!t.m[p])return;S.t.forEach((u,j)=>{if(j===i||!hasM(u))return;const mm=base.map(x=>[x[0],x[1]]);mm[i][p]--;mm[j][p]++;const d=scoreOf(me,mm)-scoreOf(op,mm)-d0;if(!best||d>best.d)best={i,p,to:j,d}})}));
  return best&&best.d>=(S.sup<=2?2:4)?best:null}
 let AIG=null;
-function aiStep(){if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;UH=[];const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
+function aiStepOld(){if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;UH=[];const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
  if(ph==='pick'&&(AIG=igBest(me))){S.igEnd=0;S.ph='ig1';return render()}
  if(ph==='ig0'){if((AIG=igBest(me))){S.igEnd=1;S.ph='ig1';return render()}CF=1;return endTurn2()}
  if(ph==='ig1'){const g=AIG||igBest(me)||{i:H[0],p:me,to:H[1]};AIG=g;S.igs={i:g.i,p:g.p};S.ph='ig2';return render()}
@@ -472,12 +475,118 @@ function aiStep(){if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;UH=[];const ph
  if(ph==='seed'){const av=avail();if(!av.length||!H.length)return endTurn();a.sel=pk(av,()=>0);const v=a.sel;a.sel={c:v.c,s:v.s};return onTile(pk(H,i=>T[i].m[me]*2))}
  if(ph==='sil'){const l=[];adj(a.x).forEach(i=>C.forEach(c=>['S','M'].forEach(s=>T[i].p[c][s]&&l.push([i,c,s]))));return l.length?onPyr(...pk(l,x=>T[x[0]].m[op])):endTurn()}
  if(ph==='sil2'){const l=[];adj(a.x).forEach(i=>C.forEach(c=>T[i].d[c]&&l.push([i,c])));if(!l.length)return endTurn();
-  const pips=i=>C.reduce((q,c)=>q+T[i].d[c],0),risk=i=>{const t=T[i];if(!(t.m[me]>t.m[op])||pips(i)>a.left)return false;const nmk=t.m[0]+t.m[1];return !(S.fin?S.sup+nmk>0:S.sup<=1&&S.sup+nmk>=2)};
-  const safe=l.filter(x=>!risk(x[0])),cap=safe.reduce((q,x)=>q+T[x[0]].d[x[1]],0),L=safe.length&&cap>=a.left?safe:l;
-  return onDie(...pk(L,x=>T[x[0]].m[op]-T[x[0]].m[me]-(risk(x[0])?5:0)))}
+  /* never strip the sector of one's own influence marker (its last pip would take the marker away) unless that is the only way to avoid losing the game: it must be losing now and the removal must stop the game from ending */
+  const pips=i=>C.reduce((q,c)=>q+T[i].d[c],0),mine=i=>T[i].m[me]>0;
+  const lose=(()=>{const R=[0,1].map(()=>({m:0,c:0}));T.forEach(t=>[0,1].forEach(p=>{const m=t.m[p],o=t.m[1-p];if(!m)return;R[p].m+=m>o?5:m===o?4:3;if(m>=o)C.forEach(c=>R[p].c+=S.pop[p][c]*(t.p[c].S+t.p[c].M+t.d[c]))}));const Z=R.map((r,p)=>r.m+r.c+S.vp[p]);return Z[me]<Z[op]})();
+  const may=i=>{if(!mine(i))return true;const nmk=T[i].m[0]+T[i].m[1];return lose&&(S.fin?S.sup+nmk>0:S.sup<=1&&S.sup+nmk>=2)};
+  const bad=x=>mine(x[0])&&!may(x[0])&&pips(x[0])===1;
+  const cap=[...new Set(l.map(x=>x[0]))].reduce((q,i)=>q+(mine(i)&&!may(i)?pips(i)-1:pips(i)),0);
+  const ok=l.filter(x=>!bad(x)),L=ok.length&&cap>=a.left?ok:l;
+  return onDie(...pk(L,x=>T[x[0]].m[op]-T[x[0]].m[me]*(bad(x)?50:1)+(mine(x[0])&&pips(x[0])===1&&may(x[0])?20:0)))}
  if(ph==='st2'){const l=[];adj(a.x).forEach(i=>hasM(T[i])&&C.forEach(c=>(T[i].d[c]?T[i].d[c]<6:S.dice[c]>0)&&l.push([i,c])));return l.length?onDie(...pk(l,x=>(T[x[0]].m[me]-T[x[0]].m[op])*2)):endTurn()}
  if(ph==='st1')return onTile(pk(H,i=>(T[i].m[me]+1>=T[i].m[op]?3:0)+(hasM(T[i])?1:0)));
  if(!H.length)return endTurn();onTile(pk(H,()=>0))}
+/* ---------- computer opponent: plans a whole turn by trying the real rules on copies of the position ---------- */
+const AW=[{vp:1.5,m:1,c:1},{vp:1.5,m:1,c:1}];   /* evaluation weights per seat (tuned offline by self-play) */
+const zs=()=>{const R=[0,1].map(()=>({m:0,c:0}));S.t.forEach(t=>[0,1].forEach(p=>{const m=t.m[p],o=t.m[1-p];if(!m)return;R[p].m+=m>o?5:m===o?4:3;if(m>=o)C.forEach(c=>R[p].c+=S.pop[p][c]*(t.p[c].S+t.p[c].M+t.d[c]))}));return R};
+function ev(me){const R=zs(),op=1-me,w=AW[me];return w.vp*(S.vp[me]-S.vp[op])+w.m*(R[me].m-R[op].m)+w.c*(R[me].c-R[op].c)}
+const SCR=[{p:0,t:'',k:'m'}];
+const snapS=()=>JSON.stringify({S:{...S,log:0},mv,a});
+function restS(x){const o=JSON.parse(x);S=o.S;S.log=SCR;mv=o.mv;a=o.a;SIMD=0}
+function searchAll(){const out=[],seen=new Set();let nodes=0;
+ for(let o=0;o<9;o++){if(!tot(S.t[o]))continue;nodes=0;startMove(o);const seq=[];
+  (function dfs(){if(nodes++>6000)return;
+   if(S.ph==='confirm'){const q=mv.placed[mv.placed.length-1],t=S.t[q.x],k=q.k,n=t.p[k.c][k.s],bl=adj(q.x).filter(y=>hasB(S.t[y])).length;
+    const sig=q.x+':'+k.c+k.s+'|'+S.t.map(u=>C.map(c=>u.p[c].S+','+u.p[c].M).join(';')).join('/');
+    if(!seen.has(sig)){seen.add(sig);out.push({o,seq:seq.slice(),v:({b:bl*n,r:1.5*n,g:2*n})[k.c]+(k.s==='M'?3:.8*n)+Math.random()*2})}return}
+   for(const g of grp(mv.hand)){mv.sel={c:g.c,s:g.s};for(const x of targets()){place(x);seq.push([g.c,g.s,x]);dfs();seq.pop();undo()}}})();
+  mv.hand.forEach(h=>S.t[o].p[h.c][h.s]++);mv=null}
+ S.ph='pick';return out}
+function actOpts(){const ph=S.ph,out=[],A=a?adj(a.x):[];
+ if(ph==='sw1'){for(const u of A)for(let i=0;i<9;i++){if(i===u||!hasB(S.t[i]))continue;out.push({d:[{k:'t',i:u},{k:'t',i}],ap:()=>{onTile0(u);onTile0(i)}})}}
+ else if(ph==='sil'){for(const i of A)for(const c of C)for(const s of ['S','M'])if(S.t[i].p[c][s]>0)out.push({d:[{k:'p',i,c,s}],ap:()=>onPyr0(i,c,s)})}
+ else if(ph==='sil2'){for(const i of A)for(const c of C)if(S.t[i].d[c])out.push({d:[{k:'d',i,c}],ap:()=>onDie0(i,c)})}
+ else if(ph==='seed'){const av=avail(),H=[...hlSet()];for(const v of av)for(const i of H)out.push({d:[{k:'seed',c:v.c,s:v.s,i}],ap:()=>{a.sel={c:v.c,s:v.s};onTile0(i)}})}
+ else if(ph==='st1'){for(const i of [...hlSet()])out.push({d:[{k:'t',i}],ap:()=>onTile0(i)})}
+ else if(ph==='st1d'){for(const c of C)if(S.dice[c]>0)out.push({d:[{k:'die',c}],ap:()=>setDie0(c)})}
+ else if(ph==='st2'){for(const i of A)if(hasM(S.t[i]))for(const c of C)if(S.t[i].d[c]?S.t[i].d[c]<6:S.dice[c]>0)out.push({d:[{k:'d',i,c}],ap:()=>onDie0(i,c)})}
+ return out}
+function runAct(me,steps){let it=0;
+ while(!SIMD&&it++<24){const os=actOpts();if(!os.length)break;
+  if(os.length===1){os[0].ap();steps.push(...os[0].d);continue}
+  const s0=snapS();let b=null,bv=-1e9;
+  for(const o of os){restS(s0);o.ap();const v=ev(me);if(v>bv){bv=v;b=o}}
+  restS(s0);b.ap();steps.push(...b.d)}}
+/* the turn change as endTurn2 does it; true = the game is over */
+function advSim(){if(S.fin){S.fin=false;if(S.sup===0)return true}if(S.sup===0)S.fin=true;S.cur=1-S.cur;S.ph='pick';mv=a=null;S.itg=null;return false}
+/* all sensible full turns for the player to move, best first; depth 2 also lets the opponent answer */
+function planTurn(depth,K){
+ const me=S.cur,R={S,mv,a},sim0=SIM;
+ const all=searchAll();S.ph='pick';if(!all.length)return null;
+ all.sort((x,y)=>y.v-x.v);const cands=all.slice(0,K);
+ const base=JSON.stringify({S:{...S,log:0},mv:null,a:null});
+ const outs=[];SIM=1;
+ try{for(const c of cands){
+   restS(base);startMove(c.o);for(const[cc,s,x]of c.seq){mv.sel={c:cc,s};place(x)}
+   commit();const post=snapS(),brs=S.ph==='ch'?[0,1]:[0];
+   for(const adv of brs){restS(post);const steps=[];begin(adv);runAct(me,steps);outs.push({v:ev(me)+Math.random()*.01,o:c.o,seq:c.seq,adv,steps,end:snapS()})}}
+  outs.sort((x,y)=>y.v-x.v);
+  if(depth>1){const M=Math.min(outs.length,window.AIM||6);
+   for(let j=0;j<M;j++){const o=outs[j];restS(o.end);
+    if(advSim()){o.v=ev(me);continue}
+    const r=planTurn(depth-1,window.AIK2||16);
+    if(r){restS(r[0].end);o.v=ev(me)+Math.random()*.01}else{restS(o.end);o.v=ev(me)}}
+   outs.sort((x,y)=>y.v-x.v)}
+ }finally{SIM=sim0;SIMD=0;S=R.S;mv=R.mv;a=R.a}
+ return outs}
+
+/* ---- prologue: marker + die placement judged by looking at the first real turn that follows ---- */
+function applyPro(i,c,p){const t=S.t[i];t.m[p]++;S.sup--;t.d[c]=1;S.dice[c]--}
+function proChoices(){const o=[];for(let i=0;i<9;i++){if(S.pro===1&&S.first===i)continue;for(const c of C)if(S.dice[c]>0)o.push({i,c})}return o}
+function firstTurnVal(K){S.cur=0;S.ph='pick';S.pi=null;const ps=planTurn(1,K);return ps&&ps[0]?ps[0].v:ev(0)}
+function planPro(){
+ const me=S.cur,R={S,mv,a},s0=snapS(),ch=proChoices();let best=null,bv=-1e9;SIM=1;
+ try{for(const x of ch){restS(s0);applyPro(x.i,x.c,me);let v;
+   if(me===0){S.pro=1;S.first=S.first<0?x.i:S.first;v=firstTurnVal(10)}
+   else{S.first=x.i;S.pro=1;const s1=snapS();
+    const rep=proChoices().map(y=>{restS(s1);applyPro(y.i,y.c,0);S.cur=0;return{y,q:ev(0)+Math.random()*.01}}).sort((p,q)=>q.q-p.q).slice(0,3);
+    v=1e9;for(const r of rep){restS(s1);applyPro(r.y.i,r.y.c,0);const w=-firstTurnVal(8);if(w<v)v=w}}
+   v+=Math.random()*.05;if(v>bv){bv=v;best=x}}
+ }finally{SIM=0;SIMD=0;S=R.S;mv=R.mv;a=R.a}
+ return best}
+/* ---- intrigue: compare the best turn with and without moving a marker first ---- */
+function planIntrigue(){const me=S.cur,op=1-me;
+ if(!S.opt.ig||S.ig[me]||!C.every(c=>S.pop[me][c]>0)||S.t.filter(hasM).length<2)return null;
+ const base=S.t.map(t=>[t.m[0],t.m[1]]),d0=scoreOf(me,base)-scoreOf(op,base),cand=[];
+ S.t.forEach((t,i)=>[0,1].forEach(p=>{if(!t.m[p])return;S.t.forEach((u,j)=>{if(j===i||!hasM(u))return;const mm=base.map(x=>[x[0],x[1]]);mm[i][p]--;mm[j][p]++;cand.push({i,p,to:j,d:scoreOf(me,mm)-scoreOf(op,mm)-d0})})}));
+ cand.sort((x,y)=>y.d-x.d);const top=cand.slice(0,6);if(!top.length)return null;
+ const R={S,mv,a},s0=snapS();let b0,res=null;SIM=1;
+ try{const p0=planTurn(1,14);b0=p0&&p0[0]?p0[0].v:ev(me);let bv=b0+(window.IGHOLD??4);
+  for(const g of top){restS(s0);const s=S.t[g.i],t=S.t[g.to];s.m[g.p]--;t.m[g.p]++;if(!hasM(s))C.forEach(c=>{S.dice[c]+=s.d[c];s.d[c]=0});C.forEach(c=>{S.pop[me][c]--;S.pool[c].S++});S.ig[me]=1;
+   const ps=planTurn(1,14),v=(ps&&ps[0]?ps[0].v:ev(me))+Math.random()*.01;if(v>bv){bv=v;res=g}}
+ }finally{SIM=0;SIMD=0;S=R.S;mv=R.mv;a=R.a}
+ return res}
+let PRO=null;
+const PH_K={sw1:'t',sw2:'t',sil:'p',sil2:'d',st2:'d',seed:'seed',st1:'t',st1d:'die'};
+function aiStep(){
+ if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;
+ if(window.AIV&&AIV[S.cur]==='old')return aiStepOld();
+ const ph=S.ph;
+ if(ph==='pm'){const x=planPro();if(x){PRO=x;if(hlSet().has(x.i))return onTile(x.i)}return aiStepOld()}
+ if(ph==='pd'&&PRO){const c=PRO.c;PRO=null;if(S.dice[c]>0)return setDie(c);return aiStepOld()}
+ if(ph==='pick'){const g=planIntrigue();if(g){AIG=g;S.igEnd=0;S.ph='ig1';return render()}}
+ if(ph==='pick'){const ps=planTurn((window.AIDEPTH||1),window.AIK||40),pl=ps&&ps[0];if(!pl)return aiStepOld();startMove(pl.o);AP=pl.seq;PLANX={adv:pl.adv,steps:pl.steps,i:0};return render()}
+ if(ph==='ch'&&PLANX){begin(PLANX.adv);return render()}
+ if(PH_K[ph]&&PLANX){const st=PLANX.steps[PLANX.i];
+  if(st&&st.k===PH_K[ph]){PLANX.i++;
+   if(st.k==='t'){if(hlSet().has(st.i))return onTile(st.i)}
+   else if(st.k==='p')return onPyr(st.i,st.c,st.s);
+   else if(st.k==='d')return onDie(st.i,st.c);
+   else if(st.k==='seed'){a.sel={c:st.c,s:st.s};return onTile(st.i)}
+   else if(st.k==='die')return setDie(st.c)}
+  PLANX=null;window.__ab=(window.__ab||0)+1}
+ return aiStepOld()}
+
 const loadPeer=()=>window.Peer?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js';s.onload=ok;s.onerror=no;document.head.appendChild(s)});
 function peerNet(code,me){return loadPeer().then(()=>new Promise((ok,no)=>{
  const h={},id='nxsyn-'+code;let conn;
@@ -489,10 +598,12 @@ function peerNet(code,me){return loadPeer().then(()=>new Promise((ok,no)=>{
   if(me===0){p.on('connection',c=>{bind(c);c.on('open',()=>h.hi&&h.hi())});ok(net)}
   else{const c=p.connect(id,{reliable:true});bind(c);c.on('open',()=>ok(net));setTimeout(no,12000)}})}))}
 function drain(){if(qt||!Q.length)return;if(RP){qt=setTimeout(()=>{qt=0;drain()},400);return}const d=Q.shift();S=d.S;mv=d.mv;a=d.a;UH=[];UO=-1;rec=1;render();rec=0;qt=setTimeout(()=>{qt=0;drain()},Q.length>6?250:1000)}
-function hoverIn(i){if(RP||!S.log[i])return;let best=null,bn=0;FR.forEach(f=>{if(f.id!==i)return;const o=JSON.parse(f.js),n=((o.a&&o.a.mk)||[]).length+((o.S.itg&&o.S.itg.mk)||[]).length;if(n>0&&n>=bn){best=o;bn=n}});if(!best)return;RP={n:i+1,sv:{S,mv,a},t:[],hv:1};best.S.log=RP.sv.S.log;S=best.S;mv=best.mv;a=best.a;render()}
+/* frames carry id = the log entry they belong to: every frame of entry i is a state while that step was being played, so the last one is the board after the step and the last one of entry i-1 is where it started */
+const lastOf=i=>{let k=-1;FR.forEach((f,x)=>{if(f.id===i)k=x});return k};
+function hoverIn(i){if(RP||!S.log[i])return;const k=lastOf(i);if(k<0)return;const best=JSON.parse(FR[k].js);RP={n:i+1,sv:{S,mv,a},t:[],hv:1};best.S.log=RP.sv.S.log;best.S.itg=null;if(best.a&&best.a.mk)best.a.mk=[];S=best.S;mv=best.mv;a=best.a;render()}
 function navTo(i){const L=S.log.length;if(!L||(RP&&!RP.hv))return;i=Math.max(0,Math.min(L-1,i));let f=null;FR.forEach(x=>{if(x.id===i)f=x});if(!f)return;if(RP&&!RP.nav)stopRp();if(!RP)RP={n:i+1,sv:{S,mv,a},t:[],hv:1,nav:1};const o=JSON.parse(f.js);o.S.log=RP.sv.S.log;o.S.itg=null;if(o.a&&o.a.mk)o.a.mk=[];S=o.S;mv=o.mv;a=o.a;NV=i;render()}
 function nav(k){const L=(RP&&RP.nav?RP.sv.S:S).log.length;if(k==='pause'){if(RP&&!RP.hv){RP.t.forEach(clearTimeout);RP.t=[];RP.hv=1;RP.nav=1;NV=Math.max(0,RP.n-1);render()}return}if(RP&&!RP.hv)return;const cur=NV>=0&&NV<L?NV:L-1;if(k==='first')navTo(0);else if(k==='prev')navTo(cur-1);else if(k==='next'){if(cur+1>=L-1&&!(RP&&RP.nav&&0))navTo(cur+1);else navTo(cur+1)}else if(k==='last'){if(RP&&RP.nav)stopRp();NV=-1}else if(k==='play'){if(RP&&RP.nav)stopRp();if(S.log[cur])replay(cur)}}
-function replay(i){if(RP&&RP.hv)stopRp();NV=i;const k=S.log[i].k;let st=FR.findIndex(f=>f.id===i);if(k==='a'){const pv=FR.map(f=>f.id).lastIndexOf(i-1);if(pv>=0)st=pv}if(st<0)return;const L=FR.slice(st);
+function replay(i){if(RP&&RP.hv)stopRp();NV=i;const en=lastOf(i);if(en<0)return;let st=i>0?lastOf(i-1):0;if(st<0||st>en)st=FR.findIndex(f=>f.id===i);if(st<0)return;const L=FR.slice(st,en+1);
  RP={n:i+1,sv:{S,mv,a},t:[]};
  L.forEach((f,k)=>RP.t.push(setTimeout(()=>{const o=JSON.parse(f.js);o.S.log=RP.sv.S.log;S=o.S;mv=o.mv;a=o.a;RP.n=f.id+1;render()},k*1000)));
  RP.t.push(setTimeout(stopRp,L.length*1000+1000))}
@@ -597,7 +708,7 @@ async function start(m,rc,resume){NET=null;CL=[null,null];if(!resume){init();S.o
  else if(m[0]==='l'){ME=+m[1];NET=linkNet();if(!resume&&S.cur!==ME){MSG=JSON.stringify({S,mv,a});setTimeout(()=>openMsg(1),0)}}
  else if(m[0]==='g'){ME=+m[1];if(resume)NET=gNet(NETC);else{try{const id=await jbCreate({js:JSON.stringify({S,mv,a}),by:ME,seq:1,ts:Date.now()});NETC=id;NET=gNet(id,1);setTimeout(()=>openMsg(1),0)}catch(e){NET=null;alert('Could not create the shared game (storage service not reachable). You can play with turn codes instead.');$('menu').hidden=false;$('menu').className='msg';return}}}
  render()}
-function endTurn(){if(a&&S.ph!=='ad'&&!RP){S.ph='ad';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='ad'){Tx=1;if(a&&a.mk&&a.mk.length){a.mk=[];render();setTimeout(function g2(){if(RP)return setTimeout(g2,400);if(S.ph==='ad'){Tx=1;endTurn();Tx=0}},200)}else endTurn();Tx=0}},350);return render()}mv=a=null;if(S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1){S.ph='ig0';return render()}return endTurn2()}
+function endTurn(){if(SIM){SIMD=1;return}if(a&&S.ph!=='ad'&&!RP){S.ph='ad';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='ad'){Tx=1;if(a&&a.mk&&a.mk.length){a.mk=[];render();setTimeout(function g2(){if(RP)return setTimeout(g2,400);if(S.ph==='ad'){Tx=1;endTurn();Tx=0}},200)}else endTurn();Tx=0}},350);return render()}mv=a=null;if(S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1){S.ph='ig0';return render()}return endTurn2()}
 function endTurn2(){if(S.ai>=0&&S.ai!==S.cur&&!CF&&S.ph!=='over'){S.ph='cf';mv=a=null;S.itg=null;return render()}CF=0;mv=a=null;S.itg=null;
  if(S.fin){S.fin=false;if(S.sup===0)return finish()}
  if(S.sup===0)S.fin=true;
@@ -614,7 +725,7 @@ function onTile0(i){if(!hlSet().has(i))return;const t=S.t[i],ph=S.ph;
  else if(ph==='ig2'){const g=S.igs,s=S.t[g.i];s.m[g.p]--;t.m[g.p]++;if(!hasM(s))C.forEach(c=>{S.dice[c]+=s.d[c];s.d[c]=0});C.forEach(c=>{S.pop[S.cur][c]--;S.pool[c].S++});S.log.push({p:S.cur,k:'i',t:`Intrigue: marker moved ${nm(g.i)} → ${nm(i)}.`});S.ig[S.cur]=1;S.itg={p:S.cur,mk:['m:'+i+':'+g.p,'r:b:S','r:r:S','r:g:S']};if(S.igEnd){S.igEnd=0;S.ph='igd';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='igd'){Tx=1;endTurn2();Tx=0}},1150);return render()}S.ph='pick'}
  else if(ph==='move'){place(i);if(S.ph==='confirm')commit()}
  else if(ph==='sw1'){a.u=i;S.ph='sw2'}
- else if(ph==='sw2'){{const nmk=S.t[a.u].m[0]+S.t[a.u].m[1]+S.t[i].m[0]+S.t[i].m[1];lg(` Swapped ${nm(a.u)} and ${nm(i)}${nmk?` with their ${nmk} influence marker${nmk>1?'s':''}`:''}.`)};(a.tg=a.tg||[]).push(a.u,i);[S.t[a.u],S.t[i]]=[S.t[i],S.t[a.u]];score();return after()}
+ else if(ph==='sw2'){{const nmk=S.t[a.u].m[0]+S.t[a.u].m[1]+S.t[i].m[0]+S.t[i].m[1];lg(` Swapped ${nm(a.u)} and ${nm(i)}${nmk?` with their ${nmk} influence marker${nmk>1?'s':''}`:''}.`)};(a.tg=a.tg||[]).push(a.u,i);[S.t[a.u],S.t[i]]=[S.t[i],S.t[a.u]];if(i===a.x){a.x=a.u;lg(` The target pyramid now stands on ${nm(a.x)}: VP are scored from there.`)}score();return after()}
  else if(ph==='seed'){const v=avail().find(x=>x.c===a.sel.c&&x.s===a.sel.s);if(!v)return;
   if(v.src==='pool')S.pool[v.c][v.s]--;else S.pop[v.src][v.c]--;t.p[v.c][v.s]++;a.left--;lg(` ${NM[v.c]} ${v.s==='S'?'small':'medium'} to ${nm(i)}.`);(a.mk=a.mk||[]).push('p:'+i+':'+v.c+':'+v.s);if(a.left<=0||!avail().length)return endTurn()}
  else if(ph==='st1'){const had=hasM(t);t.m[S.cur]++;S.sup--;a.si=i;lg(` Influence marker added at ${nm(i)}.`);(a.mk=a.mk||[]).push('m:'+i+':'+S.cur);if(!had&&C.some(c=>S.dice[c]>0))S.ph='st1d';else{S.ph='st2';auto()}}
