@@ -118,7 +118,7 @@ body{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gr
 #board.pick .cell.keep,#board.pick .cell.org{filter:brightness(1.15)}
 .pq.used,#info>span.used{outline:2px solid var(--fc);outline-offset:2px;border-radius:3px;box-shadow:0 0 7px 1px var(--fc)}
 .pyr.gl{filter:drop-shadow(0 0 4px var(--fc)) drop-shadow(0 0 1.5px var(--fc))}
-.mkw{display:flex}.mkw.used{filter:drop-shadow(0 0 3px var(--fc))}
+.mkw{display:flex}.igpk .mkw{padding:calc(var(--u)*.06);margin:calc(var(--u)*-.06);cursor:pointer}.igpk .mkw:hover .mk{filter:drop-shadow(0 0 4px #fff)}.igpk .mks{gap:0;z-index:5}.mkw.used{filter:drop-shadow(0 0 3px var(--fc))}
 #msg .inf{vertical-align:middle;margin-left:8px}#msg .ml{margin-top:6px;color:var(--mut);font-size:12px;line-height:1.5}
 #msg{order:-2;align-self:flex-start;width:auto;max-width:min(94vw,640px);margin:0 0 0 14px;min-height:3.4em;padding:6px 14px;border:0;border-left:3px solid var(--acc);background:color-mix(in srgb,var(--hex) 85%,transparent);font:500 16px/1.4 system-ui,sans-serif;letter-spacing:.01em}
 #lside{order:-1;justify-self:end;width:var(--lw);display:flex;flex-direction:column;gap:12px}
@@ -160,11 +160,11 @@ body{background:radial-gradient(1px 1px at 20px 30px,#fff,transparent),radial-gr
 }
 .plc{cursor:pointer}.plc.sel{filter:drop-shadow(0 0 4px var(--fc));transform:scale(1.25)}
 #menu label small{display:block;max-width:440px;margin:2px auto 8px;color:var(--mut);font-size:11px;line-height:1.4}
-#m2{display:none}#menu.seat>*:not(h1):not(#m2){display:none}#menu.seat #m2{display:flex;flex-direction:column;gap:10px;align-items:center}
-#m3,#m4,#m5{display:none}#menu.room>*:not(h1):not(#m3),#menu.oseat>*:not(h1):not(#m4),#menu.msg>*:not(h1):not(#m5){display:none}
+#m2,#m6{display:none}#menu.seat>*:not(h1):not(#m2),#menu.hot>*:not(h1):not(#m6){display:none}#menu.hot #m6,#menu.seat #m2{display:flex;flex-direction:column;gap:10px;align-items:center}
+#m3,#m4,#m5,#m7{display:none}#menu.oopt>*:not(h1):not(#m7){display:none}#menu.oopt #m7{display:flex;flex-direction:column;gap:10px;align-items:center;width:min(230px,100%);align-items:stretch}#m7 .btn.back{margin-top:22px;min-height:0;padding:4px 12px;background:transparent;border-color:transparent;color:var(--mut);font-size:11px;text-decoration:underline;align-self:center}#menu.room>*:not(h1):not(#m3),#menu.oseat>*:not(h1):not(#m4),#menu.msg>*:not(h1):not(#m5){display:none}
 #menu.room #m3,#menu.oseat #m4,#menu.msg #m5{display:flex;flex-direction:column;gap:10px;align-items:center}#m5 .small{color:var(--mut);font-size:11px;max-width:340px;line-height:1.4}#m5 .btn.back{margin-top:22px;min-height:0;padding:4px 12px;background:transparent;border-color:transparent;color:var(--mut);font-size:11px;text-decoration:underline}#lcode,#mdin,#mdout{font:11px/1.3 ui-monospace,monospace;width:min(340px,86vw);padding:6px;border:2px solid var(--hexb);background:var(--bg);color:var(--ink);border-radius:2px;resize:none}#mdlg{position:fixed;inset:0;z-index:12;background:color-mix(in srgb,var(--bg) 92%,transparent);display:flex;align-items:center;justify-content:center;padding:16px}#mdlg[hidden]{display:none}#mdlg .card{display:flex;flex-direction:column;gap:8px;align-items:center;max-width:380px;text-align:center}#mdlg .small{color:var(--mut);font-size:11px;line-height:1.4}#mdlg .row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 #m3 .small,#m4 .small{color:var(--mut);font-size:11px;max-width:320px;line-height:1.4}
-.opt{display:flex;align-items:center;justify-content:center;gap:8px}#menu .opt label{display:inline-block}
+.grp{color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:6px}#m2 .opt+.opt{margin-left:0}#optbox{display:flex;flex-direction:column;align-items:center;gap:6px}#optbox small{display:block;max-width:420px;color:var(--mut);font-size:11px;line-height:1.4}#optbox small[hidden]{display:none}.slot{display:flex;flex-direction:column;align-items:center}#m6{flex-direction:column;gap:10px;align-items:center}.opt{display:flex;align-items:center;justify-content:center;gap:8px}#menu .opt label{display:inline-block}
 .gap{height:1.6em;flex:none}
 .inf{width:20px;height:20px;padding:0;border-radius:50%;border:1.5px solid var(--mut);background:transparent;color:var(--mut);font:italic 700 12px Georgia,serif;line-height:1;cursor:pointer}.inf:hover{color:var(--ink);border-color:var(--ink)}
 #menu>small{display:block;max-width:440px;margin:-2px auto 8px;color:var(--mut);font-size:11px;line-height:1.4}#menu small[hidden]{display:none!important}
@@ -325,9 +325,26 @@ html.lc #mapctl{left:calc(var(--lw) + 12px)}
 #pane #wrap #bar #tray{flex:none}
 #pane #wrap #bar #btns{flex:1 1 auto}
 @media(max-width:700px){:root{--barh:104px}#pane #wrap #bar #msg{flex-basis:100%}#btns .btn.sm,#btns .chip{font-size:10px;padding:2px 6px;letter-spacing:.02em}#pane #wrap #bar #btns{gap:4px}}
+
+#m2,#m6{width:min(230px,100%);align-items:stretch!important}
+#optbox{align-items:stretch;gap:2px;text-align:left;width:100%}.slot{align-self:stretch;align-items:stretch!important}#menu .grp{align-self:flex-start;margin:10px 0 3px;font-size:10px;text-align:left}
+.seg{display:flex;border:1px solid var(--hexb);border-radius:3px;overflow:hidden;align-self:stretch}
+#menu .seg label{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px 8px;cursor:pointer;color:var(--mut);position:relative;font-size:11px;letter-spacing:.03em;border-left:1px solid var(--hexb)}
+#menu .seg label:first-child{border-left:0}.seg input{position:absolute;opacity:0;pointer-events:none}
+#menu .seg label:has(input:checked){background:var(--hl);color:var(--ink);box-shadow:inset 0 -2px 0 var(--acc,var(--b))}
+#menu .seg label:has(input:focus-visible){outline:2px solid var(--acc,var(--b));outline-offset:-2px}
+#menu .rw{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 2px;font-size:11px;border-bottom:1px solid var(--hexb);cursor:pointer}#menu .rw>span{margin-right:auto}#menu .rw>.sw{order:3}#menu .rw>.inf{order:2;margin-right:2px}
+.sw{appearance:none;-webkit-appearance:none;width:24px;height:13px;border-radius:7px;background:var(--hexb);position:relative;cursor:pointer;margin:0;transition:background .15s}
+.sw::after{content:'';position:absolute;top:2px;left:2px;width:9px;height:9px;border-radius:50%;background:var(--ink);transition:left .15s}
+.sw:checked{background:var(--acc,var(--b))}.sw:checked::after{left:13px;background:var(--bg)}
+#optbox small{max-width:none;padding:2px 2px 4px;font-size:10px}#menu .seg .inf,#menu .rw .inf{width:15px;height:15px;font-size:10px}
+#m2 .row,#m6 .row{display:flex;gap:8px}#m2 .row .btn{flex:1;padding:4px 6px}
+#m2 .row{width:min(300px,94vw);align-self:center}#m2 .slot+.grp{align-self:center}
+#m4{width:min(300px,94vw);align-items:stretch!important}#m4 .small{font-size:10px;line-height:1.4;color:var(--mut);text-align:left;max-width:none}#m4 .row{display:flex;gap:8px;width:100%}#m4 .row .btn{flex:1;padding:4px 6px}#m4 .slot+.small+.grp{align-self:center}
+#m6 .btn.back{margin-top:22px;min-height:0;padding:4px 12px;background:transparent;border-color:transparent;color:var(--mut);font-size:11px;text-decoration:underline;align-self:center}
 </style></head><body>
 <div id="ctl"></div><div id="mapctl"></div><div id="left"><button id="lt" type="button" title="Collapse the side panel" aria-label="Collapse the side panel"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M7.5 2 3.5 6l4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><h1 id="ttl">NEXUS<small>SYNDICATE</small></h1><div id="lside"><div id="nav"><button class="chip" data-k="nv" data-a="first" title="Back to the first move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><rect x="1.5" y="1.5" width="1.7" height="9" fill="currentColor"/><polygon points="10.5,1.5 10.5,10.5 4.5,6" fill="currentColor"/></svg></button><button class="chip" data-k="nv" data-a="prev" title="End result of the previous move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M8 1.8 3.8 6 8 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="play" title="Play back from the selected move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="3,1.5 10.5,6 3,10.5" fill="currentColor"/></svg></button><button class="chip" data-k="nv" data-a="next" title="End result of the next move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M4 1.8 8.2 6 4 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="last" title="Back to the latest position"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="1.5,1.5 1.5,10.5 7.5,6" fill="currentColor"/><rect x="8.8" y="1.5" width="1.7" height="9" fill="currentColor"/></svg></button></div><div id="info"></div><div id="plr"></div><div id="hist"></div></div></div><div id="pane"><div id="wrap"><div id="bar"><div id="msg"></div><div id="tray"></div><div id="btns"></div><div id="undo"></div></div><div id="main"><div id="board"></div></div></div></div>
-<div id="menu"><h1>NEXUS<small>SYNDICATE</small></h1><div class="gap"></div><div class="opt"><label><input type="checkbox" id="omob" checked> Mobilisation (optional rule)</label><button class="inf" data-k="inf" data-a="mob" title="Information">i</button></div><small id="s_mob" hidden>Whenever the combined Spanning score passes a multiple of 10, the acting player takes 3 pyramids (recruitment pool first, then the popularity pools) and places them on any sectors. Passing two multiples at once gives 6.</small><div class="opt"><label><input type="checkbox" id="oig" checked> Intrigue (optional rule)</label><button class="inf" data-k="inf" data-a="ig" title="Information">i</button></div><small id="s_ig" hidden>Once per game, at the start or end of your turn, you may move any one influence marker to another sector that already has a marker. This needs one pyramid of each colour in your popularity pool, which go to the recruitment pool.</small><div class="gap"></div><button class="btn" data-k="sp" data-a="open">Play the computer</button><div id="m2"><div>Play as</div><div class="row"><button class="btn" data-k="go" data-m="ai0">Player 1</button><button class="btn" data-k="go" data-m="ai1">Player 2</button><button class="btn" data-k="go" data-m="air">Random</button></div><button class="btn back" data-k="sp" data-a="back">Back</button></div><button class="btn" data-k="go" data-m="hot">Two Players, One Screen</button><button class="btn" data-k="sp" data-a="room">Online</button><div id="m3"><div>Room key</div><div class="small">Both players enter the same key.</div><input type="text" id="code" placeholder="room key" maxlength="12"><button class="btn" data-k="sp" data-a="oseat">Continue</button><button class="btn back" data-k="sp" data-a="back">Back</button></div><div id="m4"><div>Play as</div><div class="small">Player 1 starts the game, Player 2 joins with the same key. The game is saved: you can take your turn whenever you like and come back later with the same key.</div><div class="row"><button class="btn" data-k="go" data-m="n0">Player 1</button><button class="btn" data-k="go" data-m="n1">Player 2</button></div><button class="btn back" data-k="sp" data-a="room">Back</button></div></div>
+<div id="menu"><h1>NEXUS<small>SYNDICATE</small></h1><div class="gap"></div><div id="hold" hidden><div id="optbox"><div class="grp">Optional rules</div><label class="rw"><input type="checkbox" id="omob" class="sw" checked><span>Mobilisation</span><button class="inf" data-k="inf" data-a="mob" title="Information">i</button></label><small id="s_mob" hidden>Whenever the combined Spanning score passes a multiple of 15, the acting player takes 3 pyramids (recruitment pool first, then the popularity pools) and places them on any sectors. Passing two multiples at once gives 6.</small><label class="rw"><input type="checkbox" id="oig" class="sw" checked><span>Intrigue</span><button class="inf" data-k="inf" data-a="ig" title="Information">i</button></label><small id="s_ig" hidden>Once per game, at the start or end of your turn, you may move any one influence marker to another sector that already has a marker. This needs one pyramid of each colour in your popularity pool, which go to the recruitment pool.</small><div class="grp">Opening</div><div class="seg"><label><input type="radio" name="open" value="0" checked><span>Standard</span><button class="inf" data-k="inf" data-a="op0" title="Information">i</button></label><label><input type="radio" name="open" value="1"><span>Pie rule</span><button class="inf" data-k="inf" data-a="op1" title="Information">i</button></label></div><small id="s_op0" hidden>Player 1 places an influence marker and a die first, then Player 2. Player 1 takes the first turn.</small><small id="s_op1" hidden>Player 1 sets up the opening positions of both players: first the influence marker and die of Player 1, then those of Player 2. Then Player 2 chooses a position. Taking Player 1’s position means becoming Player 1 and moving first; the players swap roles.</small></div></div><button class="btn" data-k="sp" data-a="open">Play the computer</button><div id="m2"><div class="grp">Difficulty</div><div class="seg"><label><input type="radio" name="dif" value="0" checked><span>Intermediate</span></label><label><input type="radio" name="dif" value="1"><span>Strong</span></label></div><div class="slot"></div><div class="grp">Play as</div><div class="row"><button class="btn" data-k="go" data-m="ai0">Player 1</button><button class="btn" data-k="go" data-m="ai1">Player 2</button><button class="btn" data-k="go" data-m="air">Random</button></div><button class="btn back" data-k="sp" data-a="back">Back</button></div><button class="btn" data-k="sp" data-a="hot">Two Players, One Screen</button><div id="m6"><div class="slot"></div><button class="btn" data-k="go" data-m="hot">Start</button><button class="btn back" data-k="sp" data-a="back">Back</button></div><button class="btn" data-k="sp" data-a="room">Online</button><div id="m3"><div>Room key</div><div class="small">Both players enter the same key.</div><input type="text" id="code" placeholder="room key" maxlength="12"><button class="btn" data-k="sp" data-a="oseat">Continue</button><button class="btn back" data-k="sp" data-a="back">Back</button></div><div id="m4"><div class="small">The game is saved: you can take your turn whenever you like and come back later with the same key.</div><div class="small">Player 1 chooses the rules and the opening.</div><div class="grp">Play as</div><div class="row"><button class="btn" data-k="sp" data-a="o1">Player 1</button><button class="btn" data-k="go" data-m="n1">Player 2</button></div><button class="btn back" data-k="sp" data-a="room">Back</button></div><div id="m7"><div class="slot"></div><button class="btn" data-k="go" data-m="n0">Start</button><button class="btn back" data-k="sp" data-a="o2">Back</button></div></div>
 <script>
 let SIM=0,SIMD=0,PLANX=null;
 const _stm=window.setTimeout;window.setTimeout=function(f,d,...r){if(SIM)return 0;if(window.HEADLESS){f();return 0}return _stm.call(window,f,d,...r)};
@@ -337,10 +354,12 @@ const E=()=>({b:{S:0,M:0},r:{S:0,M:0},g:{S:0,M:0}});
 const tot=t=>C.reduce((s,c)=>s+t.p[c].S+t.p[c].M,0),hasM=t=>t.m[0]+t.m[1]>0,hasB=t=>t.p.b.S+t.p.b.M>0;
 const pyr=(c,s,n,all,k,inl)=>{if(k&&!all&&n>k&&!inl)return pyr(c,s,n-k)+pyr(c,s,k,0,k);const gl=k&&!all?' gl':'',us=gl?' class="used"':'';if(!ST||all)return `<span class="pyr ${c} ${s} num${gl}"><i${us}></i>${all?`<u>${n}</u>`:n>1?`<u>×${n}</u>`:''}</span>`;const m=Math.min(Math.max(n,1),6);return `<span class="pyr ${c} ${s}${inl?'':gl}" data-n="${n}" style="--n:${m}">${n<1?'<i class="gh"></i>':Array.from({length:m},(_,j)=>j>=m-(inl?Math.min(k,m):(gl?m:0))?(inl?'<b class="gw"><i class="used"></i></b>':'<i class="used"></i>'):'<i></i>').join('')}</span>`};
 let S,mv,a;
+const MEi=()=>ME^((S&&S.sw)||0);
+const ctl=()=>S.opt&&S.opt.pie?(['pm','pd','pdd','pcf'].includes(S.ph)?0:S.ph==='pie'?1:S.cur):S.cur;
 function init(){FR=[];LJ='';UH=[];UO=-1;CF=0;
  const cards=[];C.forEach(c=>['S','M'].forEach(s=>[1,2,3].forEach(n=>cards.push({c,s,n}))));cards.push(null,null);
  for(let i=cards.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[cards[i],cards[j]]=[cards[j],cards[i]]}
- S={t:[],pool:E(),pop:[{b:0,r:0,g:0},{b:0,r:0,g:0}],sup:6,dice:{b:3,r:3,g:3},vp:[0,0],cur:1,ph:'pm',pro:0,first:-1,opt:{mob:1,ig:1},ig:[0,0],ai:-1,fin:false,igs:null,log:[]};mv=a=null;
+ S={t:[],pool:E(),pop:[{b:0,r:0,g:0},{b:0,r:0,g:0}],sup:6,dice:{b:3,r:3,g:3},vp:[0,0],cur:0,ph:'pm',pro:0,first:-1,opt:{mob:1,ig:1},ig:[0,0],ai:-1,fin:false,igs:null,log:[]};mv=a=null;
  for(let i=0;i<9;i++){const t={p:E(),m:[0,0],d:{b:0,r:0,g:0}};[cards[2*i],cards[2*i+1]].forEach(k=>k&&(t.p[k.c][k.s]+=k.n));S.t.push(t)}
  [cards[18],cards[19]].forEach(k=>k&&(S.pool[k.c][k.s]+=k.n));render()}
 const targets=()=>{const cur=mv.path[mv.path.length-1],r=mv.hand.length;let T;
@@ -356,13 +375,14 @@ function hlSet(){const s=new Set(),add=l=>l.forEach(x=>s.add(x)),all=[0,1,2,3,4,
  case'pm':add(all.filter(i=>!(S.pro===1&&S.first===i)));break;
  case'pick':add(all.filter(i=>tot(S.t[i])&&(!S.lg||S.lg.includes(i))));break;
  case'move':add(targets());break;
- case'sw1':case'st1':add(A);break;
+ case'sw1':add(A.filter(u=>[0,1,2,3,4,5,6,7,8].some(i=>i!==u&&i!==a.x&&hasB(S.t[i]))));break;
+ case'st1':add(A);break;
  case'seed':add(a.any?all:A);break;
  case'pd':add([S.pi]);break;
  case'st1d':add([a.si]);break;
  case'ig1':add(all.filter(i=>hasM(S.t[i])));break;
  case'ig2':add(all.filter(i=>hasM(S.t[i])&&i!==S.igs.i));break;
- case'sw2':add(all.filter(i=>i!==a.u&&hasB(S.t[i])));break;
+ case'sw2':add(all.filter(i=>i!==a.u&&i!==a.x&&hasB(S.t[i])));break;
  case'sil':add(A.filter(i=>tot(S.t[i])));break;
  case'sil2':add(A.filter(i=>C.some(c=>S.t[i].d[c])));break;
  case'st2':add(A.filter(i=>hasM(S.t[i])));break}
@@ -372,12 +392,12 @@ function render(){
  if(!RP){const id=['pm','pd','pick','move','confirm','ig1','ig2'].includes(S.ph)?S.log.length:S.log.length-1,js=JSON.stringify({S:{...S,log:0},mv,a});if(js!==LJ){LJ=js;FR.push({id,js})}clearTimeout(sv);sv=setTimeout(save,300)}
  if(mv&&!mv.hand.some(h=>mv.sel&&h.c===mv.sel.c&&h.s===mv.sel.s))mv.sel=mv.hand[0]?{c:mv.hand[0].c,s:mv.hand[0].s}:null;
  if(S.ph==='seed'){const av=avail();if(av.length&&!av.some(x=>a.sel&&x.c===a.sel.c&&x.s===a.sel.s))a.sel={c:av[0].c,s:av[0].s}}
- const H=hlSet();const PL=mv&&(S.ph==='move'||S.ph==='confirm')?mv.placed:[];const MK=((a&&a.mk&&(ACT.includes(S.ph)||S.ph==='pp'||S.ph==='ch'||S.ph==='ad'))?a.mk:[]).concat(S.itg?S.itg.mk:[]);document.body.style.setProperty('--fc',(S.itg?S.itg.p:S.cur)?'var(--p2)':'var(--p1)');
- const f=flip();$('board').className=(f?'fl':'')+(H.size?' pick':'');$('board').innerHTML=(f?[8,7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7,8]).map(i=>{const t=S.t[i];let st='';
+ const H=hlSet();const PL=mv&&(S.ph==='move'||S.ph==='confirm')?mv.placed:[];const MK=((a&&a.mk&&(ACT.includes(S.ph)||S.ph==='pp'||S.ph==='ch'||S.ph==='ad'))?a.mk:[]).concat(S.itg?S.itg.mk:[]);document.body.classList.toggle('igpk',S.ph==='ig1');document.body.style.setProperty('--fc',(S.itg?S.itg.p:S.cur)?'var(--p2)':'var(--p1)');
+ const f=flip(),fT=f^((S.sw&&(NET||S.ai>=0))?1:0);$('board').className=(fT?'fl':'')+(H.size?' pick':'');$('board').innerHTML=(fT?[8,7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7,8]).map(i=>{const t=S.t[i];let st='';
   C.forEach(c=>['S','M'].forEach(s=>{const n=t.p[c][s]-PL.filter(q=>q.x===i&&q.k.c===c&&q.k.s===s).length;if(n>0)st+=`<span data-k="p" data-i="${i}" data-c="${c}" data-s="${s}">${pyr(c,s,n,0,MK.filter(x=>x==='p:'+i+':'+c+':'+s).length,1)}</span>`}));PL.forEach((q,j)=>{if(q.x===i)st+=`<span class="plc${mv.sw===j?' sel':''}" data-k="pp" data-i="${i}" data-j="${j}">${pyr(q.k.c,q.k.s,1,0,1)}</span>`});
   const gh=(S.ph==='st2'&&adj(a.x).includes(i)&&hasM(t))||(S.ph==='pd'&&i===S.pi)||(S.ph==='st1d'&&a&&i===a.si);
   const dc=C.map(c=>t.d[c]?`<b class="die ${c}${MK.includes('d:'+i+':'+c)?' used':''}" data-k="d" data-i="${i}" data-c="${c}">${t.d[c]}</b>`:(gh&&S.dice[c]?`<b class="die ghost ${c}${S.pdc===c&&S.ph==='pd'&&i===S.pi?' used':''}" data-k="d" data-i="${i}" data-c="${c}">+</b>`:'')).join('');
-  const mk=p=>Array.from({length:t.m[p]},(_,j)=>{const u=MK.includes('m:'+i+':'+p)&&j===t.m[p]-1?' used':'';return `<span class="mkw${u}"><i class="mk${u}" data-k="m" data-i="${i}" data-p="${p}"></i></span>`}).join('');
+  const mk=p=>Array.from({length:t.m[p]},(_,j)=>{const u=MK.includes('m:'+i+':'+p)&&j===t.m[p]-1?' used':'';return `<span class="mkw${u}" data-k="m" data-i="${i}" data-p="${p}"><i class="mk${u}" data-k="m" data-i="${i}" data-p="${p}"></i></span>`}).join('');
   const sn=mv?mv.placed.map((q,j)=>q.x===i?j+1:0).filter(Boolean).join('·'):'';
   return `<div class="cell${H.has(i)?' hl':''}${mv&&mv.o===i?' org':''}${sn?' keep':''}${a&&a.x===i&&['pp','ch','ad','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' fin f'+S.cur:''}${a&&a.tg&&a.tg.includes(i)&&['pp','ch','ad','sw1','sw2','sil','sil2','seed','st1','st1d','st2'].includes(S.ph)?' tgt f'+S.cur:''}" data-k="t" data-i="${i}" data-tot="${tot(S.t[i])}"><div class="hex"></div><small class="nm">${nm(i)}</small><div class="mks t">${mk(f?0:1)}</div><div class="stk">${st}</div><div class="dice">${dc}</div><div class="mks bt">${mk(f?1:0)}</div>${sn?`<em>${sn}</em>`:''}</div>`}).join('');
  const sc=p=>`<div class="pl p${p}${S.cur===p&&S.ph!=='over'?' on':''}"><b>Player ${p+1}</b><i class="mk" data-p="${p}"></i><span>${S.ph==='over'&&S.tot?S.tot[p]:S.vp[p]} VP</span><small><span class="pqs">${C.map(c=>`<span class="pq${S.pg&&S.pg.p===p&&S.pg.c===c?' gain':''}${MK.includes('o:'+p+':'+c)?' used':''}">${pyr(c,'S',S.pop[p][c],1)}</span>`).join('')}</span></small></div>`;
@@ -385,19 +405,19 @@ function render(){
  $('ctl').innerHTML=`<button class="chip" data-k="x" data-a="newg" title="Back to the main menu (click twice)">${Date.now()-NG<3000?'Sure?':'<svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><path d="M1.5 7 7 2l5.5 5M3 6.2V12h3V8.6h2V12h3V6.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>'}</button>${NET&&(NET.link||NET.g)?'<button class="chip" data-k="msg" title="Send or receive a turn code">\u2709</button>':''}`;$('mapctl').innerHTML=`<button class="chip" data-k="x" data-a="zout" title="Zoom out">−</button><button class="chip" data-k="x" data-a="zin" title="Zoom in">+</button><button class="chip" data-k="x" data-a="flip" title="Flip the board view">⟲ Flip</button><button class="chip seg" data-k="x" data-a="stk" title="${ST?'Showing stacked pyramids – tap for numbers':'Showing numbers – tap for stacked pyramids'}" aria-label="Pyramids or numbers"><span class="${ST?'on':''}"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><g fill="currentColor"><polygon points="6,0.8 8.4,4.4 3.6,4.4"/><polygon points="6,3.8 9,8 3,8"/><polygon points="6,7 9.6,11.4 2.4,11.4"/></g></svg></span><span class="${ST?'':'on'}">#</span></button>`;
  if(!(RP&&RP.hv&&!RP.nav)){const h=$('hist'),sb=h.scrollTop+h.clientHeight>=h.scrollHeight-8,st=h.scrollTop;h.innerHTML=S.log.map((e,i)=>`<p class="${RP&&RP.nav&&i===NV?'cur':''}" data-k="h" data-i="${i}" title="Replay this move"><b class="w p${e.p}">${i+1}.</b> ${e.t}</p>`).join('');h.scrollTop=sb?h.scrollHeight:st}
  {const hd={};hd.innerHTML=mv&&(S.ph==='move'||S.ph==='confirm')?`<div class="hw"><div class="hp">${grp(mv.hand).map(x=>`<button class="hi${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${pyr(x.c,x.s,x.n)}<span>${NM[x.c]} ${x.s==='S'?'small':'medium'}</span></button>`).join('')}</div><div class="hh">${mv.hand.length} left</div></div>`:''}
- $('info').innerHTML=`<div class="ib"><span class="sym${MK.includes('s')?' used':''}"><i class="mk split"></i>×${S.sup}</span>${S.opt.mob&&S.ph!=='over'?`<span class="mob" title="Mobilisation in ${10-(S.vp[0]+S.vp[1])%10} VP"><svg class="mbs" viewBox="0 0 24 20" width="26" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 11L12.00 5.60" stroke-width="1.1"/><polygon points="12,1.2 14.00,5.60 10.00,5.60" stroke="none" fill="currentColor"/><path d="M10.2 12L5.23 6.79" stroke-width="1.1"/><polygon points="2.2,3.6 6.68,5.41 3.79,8.17" stroke="none" fill="currentColor"/><path d="M13.8 12L18.77 6.79" stroke-width="1.1"/><polygon points="21.8,3.6 20.21,8.17 17.32,5.41" stroke="none" fill="currentColor"/></g><polygon points="12,11.6 16.4,18.8 7.6,18.8" fill="currentColor"/></svg><span class="mbar">${Array.from({length:10},(_,i)=>`<i${i<(S.vp[0]+S.vp[1])%10?' class="f"':''}></i>`).join('')}</span></span>`:''}${S.opt.mob?'</div><div class="ib">':''}<span class="sym">${C.map(c=>`<b class="die sm ${c}${MK.includes('q:'+c)?' used':''}">${S.dice[c]}</b>`).join('')}</span><span class="pool">${C.map(c=>['S','M'].map(z=>S.pool[c][z]?pyr(c,z,S.pool[c][z],0,MK.filter(x=>x==='r:'+c+':'+z).length,1):'').join('')).join('')}</span></div>`;
+ $('info').innerHTML=`<div class="ib"><span class="sym${MK.includes('s')?' used':''}"><i class="mk split"></i>×${S.sup}</span>${S.opt.mob&&S.ph!=='over'?`<span class="mob" title="Mobilisation in ${15-(S.vp[0]+S.vp[1])%15} VP"><svg class="mbs" viewBox="0 0 24 20" width="26" height="22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 11L12.00 5.60" stroke-width="1.1"/><polygon points="12,1.2 14.00,5.60 10.00,5.60" stroke="none" fill="currentColor"/><path d="M10.2 12L5.23 6.79" stroke-width="1.1"/><polygon points="2.2,3.6 6.68,5.41 3.79,8.17" stroke="none" fill="currentColor"/><path d="M13.8 12L18.77 6.79" stroke-width="1.1"/><polygon points="21.8,3.6 20.21,8.17 17.32,5.41" stroke="none" fill="currentColor"/></g><polygon points="12,11.6 16.4,18.8 7.6,18.8" fill="currentColor"/></svg><span class="mbar">${Array.from({length:15},(_,i)=>`<i${i<(S.vp[0]+S.vp[1])%15?' class="f"':''}></i>`).join('')}</span></span>`:''}${S.opt.mob?'</div><div class="ib">':''}<span class="sym">${C.map(c=>`<b class="die sm ${c}${MK.includes('q:'+c)?' used':''}">${S.dice[c]}</b>`).join('')}</span><span class="pool">${C.map(c=>['S','M'].map(z=>S.pool[c][z]?pyr(c,z,S.pool[c][z],0,MK.filter(x=>x==='r:'+c+':'+z).length,1):'').join('')).join('')}</span></div>`;
  ui()}
 const nm=i=>'ABC'[i%3]+((i/3|0)+1);const lg=t=>{const e=S.log[a&&a.li!=null?a.li:S.log.length-1];if(e)e.t+=t};
 const grp=l=>{const m={};l.forEach(x=>{const k=x.c+x.s;m[k]=m[k]||{c:x.c,s:x.s,n:0};m[k].n++});return Object.values(m)};
 const chip=(x,sel)=>`<button class="chip${sel?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${pyr(x.c,x.s,x.n)}</button>`;
 const who=()=>`<b class="w p${S.cur}">Player ${S.cur+1}</b>`;
 function msgFull(){const n=a&&a.left,W=who(),pl=n>1?'s':'';
- return({pm:`${W}: Place your influence marker. Tap a sector${S.pro?' (not the one your opponent chose)':''}.`,
- pd:`${W}: Choose the colour of your first die (it starts at 1). Tap a + slot in the sector.`,
+ return({pm:S.opt.pie?`Opening: place the influence marker of ${W}. Tap a sector${S.pro?' (not the one used by the other position)':''}.`:`${W}: Place your influence marker. Tap a sector${S.pro?' (not the one your opponent chose)':''}.`,pie:`<b class="w p1">Player 2</b>: choose a starting position. If you take the position of Player 1, you become Player 1 and move first; the other player becomes Player 2.`,
+ pd:S.opt.pie?`Opening: choose the colour of the first die of ${W} (it starts at 1). Tap a + slot in the sector.`:`${W}: Choose the colour of your first die (it starts at 1). Tap a + slot in the sector.`,
  pick:`${W}: Tap a sector to pick up all its pyramids. Only sectors with a legal move can be chosen.`,
  move:`${W}: Pick a pyramid below, then tap a neighbouring tile to place it. The last pyramid must land on a pyramid of the same colour and size, or beside a die of its colour. A sector can only be reused if the whole move is a loop back to the start sector (4+ sectors). To swap, tap a placed pyramid and another placed or held pyramid, in either order.${mv&&mv.hand.length>0&&!completable()?' <b>No legal move is possible from this path. Undo a placement.</b>':mv&&mv.hand.length===1&&!targets().length?' <b>The last pyramid cannot land legally. Swap pyramids.</b>':''}`,
  confirm:`${W}: Move complete. Tap two placed pyramids to swap them, then confirm, or undo to change the move.${mv&&mv.warn?' <b>That swap would break the last-pyramid rule.</b>':''}`,
- sw1:`${W}: Spanning II. Tap a sector next to your final tile to swap.`,
+ sw1:`${W}: Spanning II. Tap a sector next to your final tile to swap (the final tile itself cannot be swapped).`,
  sw2:`${W}: Now tap a sector with a blue pyramid to swap it with.`,
  sil:`${W}: Silencing. Tap ${n} pyramid${pl} on neighbouring sectors to send to the recruitment pool.`,
  sil2:`${W}: Silencing II. Tap dice on neighbouring sectors to remove ${n} pip${pl}.`,
@@ -405,22 +425,24 @@ function msgFull(){const n=a&&a.left,W=who(),pl=n>1?'s':'';
  st1:`${W}: Steering. Tap a neighbouring sector to place an influence marker.`,
  st1d:`${W}: Choose the die colour for this sector. Tap a + slot in the sector.`,
  st2:`${W}: Steering. ${n} pip${pl} left. Tap dice, or ＋ slots, on sectors with markers.`,
- ig1:`${W}: Intrigue. Tap an influence marker to relocate.`,ad:`${W}: Action complete.`,cf:`${W}: Turn complete. Press End turn to hand over to the computer, or undo a step.`,igd:`${W}: Intrigue complete.`,pp:`${W}: The small pyramids move into your popularity pool.`,ch:`${W}: Choose how to use your medium pyramid: basic or advanced action.`,ig0:`${W}: Turn complete. Play your Intrigue before ending it?`,ig2:`${W}: Tap another sector that already has a marker to move it there.`,over:S.res})[S.ph]||''}
+ ig1:`${W}: Intrigue. Tap an influence marker to relocate.`,ad:`${W}: Action complete.`,pcf:`${W}: Marker and die placed. Press End turn to hand over to the computer.`,cf:`${W}: Turn complete. Press End turn to hand over to the computer, or undo a step.`,igd:`${W}: Intrigue complete.`,pp:`${W}: The small pyramids move into your popularity pool.`,ch:`${W}: Choose how to use your medium pyramid: basic or advanced action.`,ig0:`${W}: Turn complete. Play your Intrigue before ending it?`,ig2:`${W}: Tap another sector that already has a marker to move it there.`,over:S.res})[S.ph]||''}
 const navHTML=()=>{const pl=RP&&!RP.hv;return `<button class="chip" data-k="nv" data-a="first" title="Back to the first move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><rect x="1.5" y="1.5" width="1.7" height="9" fill="currentColor"/><polygon points="10.5,1.5 10.5,10.5 4.5,6" fill="currentColor"/></svg></button><button class="chip" data-k="nv" data-a="prev" title="End result of the previous move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M8 1.8 3.8 6 8 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="${pl?'pause':'play'}" title="${pl?'Pause the playback':'Play back from the selected move'}">${pl?'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><rect x="2.5" y="1.5" width="2.5" height="9" fill="currentColor"/><rect x="7" y="1.5" width="2.5" height="9" fill="currentColor"/></svg>':'<svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="3,1.5 10.5,6 3,10.5" fill="currentColor"/></svg>'}</button><button class="chip" data-k="nv" data-a="next" title="End result of the next move"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M4 1.8 8.2 6 4 10.2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button><button class="chip" data-k="nv" data-a="last" title="Back to the latest position"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><polygon points="1.5,1.5 1.5,10.5 7.5,6" fill="currentColor"/><rect x="8.8" y="1.5" width="1.7" height="9" fill="currentColor"/></svg></button>`};
 function ui(){$('nav').innerHTML=navHTML();let tr='',bt='',un='';const B=(l,k,c='')=>`<button class="btn ${c}" data-k="x" data-a="${k}">${l}</button>`;
  if(S.ph==='move'){tr=handHTML()}
  else if(S.ph==='pick'&&S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1)bt=B('Intrigue','ig','sm');
- else if(S.ph==='ch')bt=B(({b:'Spanning',r:'Silencing',g:'Seeding'})[a.c],'basic','pri sm ac-'+a.c)+B(({b:'Spanning II',r:'Silencing II',g:'Steering'})[a.c],'adv','sm ac-'+a.c);
+ else if(S.ph==='ch')bt=B(({b:'Spanning',r:'Silencing',g:'Seeding'})[a.c],'basic','pri sm ac-'+a.c)+(a.c==='b'&&!s2ok()?'':B(({b:'Spanning II',r:'Silencing II',g:'Steering'})[a.c],'adv','sm ac-'+a.c));
  else if(S.ph==='ig0')bt=B('Play Intrigue','ig','pri sm')+B('End turn','fin','sm');
  else if(S.ph==='cf')bt=B('End turn','fin2','sm');
+ else if(S.ph==='pcf')bt=B('End turn','fin3','sm');
+ else if(S.ph==='pie')bt=B('Take Player 1’s position (moves first)','pie0','sm')+B('Take Player 2’s position','pie1','sm');
  else if(S.ph==='confirm'){tr=handHTML()}
  else if(S.ph==='seed')tr='<div class="hw"><div class="hp">'+avail().map(x=>{const sl=a.sel&&x.c===a.sel.c&&x.s===a.sel.s;return `<button class="hi${sl?' sel':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${sl?pyr(x.c,x.s,x.n,0,1,1):pyr(x.c,x.s,x.n)}</button>`}).join('')+'</div></div>';
  else if(S.ph==='pd'||S.ph==='st1d')tr='';
 
  else if(S.ph==='over')bt=B('Play again','new','pri');
- if(S.ph!=='over'){const can=UH.length&&S.ai!==S.cur&&!S.bz;un=`<button class="chip" data-k="x" data-a="uundo"${can?'':' disabled'}>Undo</button><button class="chip" data-k="x" data-a="urst" title="Restart your turn from the beginning"${can?'':' disabled'}>Restart turn</button>`}
- $('msg').innerHTML=(NET&&NET.wait?'<i>Waiting for Player 1 to start the game. </i>':NET&&S.cur!==ME&&S.ph!=='over'?'<i>Opponent’s turn. </i>':'')+msgBox();$('tray').innerHTML=tr;{const ex=[];bt=bt.replace(/<button[^>]*data-a="(?:ig|fin|fin2)"[^>]*>.*?<\/button>/g,m=>{ex.push(m);return ''});un=ex.join('')+un}$('btns').innerHTML=bt;$('undo').innerHTML=un;
- aiGo();try{document.title=(NET&&NET.async&&S.cur===ME&&S.ph!=='over'?'\u25cf Your turn \u2013 ':'')+'Nexus Syndicate'}catch(e){}if(NET&&!NET.wait&&!rec&&!RP&&(Tx||S.cur===ME||S.ph==='over'))sendSoon()}
+ if(S.ph!=='over'){const can=UH.length&&S.ai!==ctl()&&!S.bz;un=`<button class="chip" data-k="x" data-a="uundo"${can?'':' disabled'}>Undo</button><button class="chip" data-k="x" data-a="urst" title="Restart your turn from the beginning"${can?'':' disabled'}>Restart turn</button>`}
+ $('msg').innerHTML=(NET&&NET.wait?'<i>Waiting for Player 1 to start the game. </i>':NET&&ctl()!==MEi()&&S.ph!=='over'?'<i>Opponent’s turn. </i>':'')+msgBox();$('tray').innerHTML=tr;{const ex=[];bt=bt.replace(/<button[^>]*data-a="(?:ig|fin|fin2)"[^>]*>.*?<\/button>/g,m=>{ex.push(m);return ''});un=ex.join('')+un}$('btns').innerHTML=bt;$('undo').innerHTML=un;
+ aiGo();try{document.title=(NET&&NET.async&&ctl()===MEi()&&S.ph!=='over'?'\u25cf Your turn \u2013 ':'')+'Nexus Syndicate'}catch(e){}if(NET&&!NET.wait&&!rec&&!RP&&(Tx||ctl()===MEi()||S.ph==='over'))sendSoon()}
 function startMove(i){S.itg=null;const t=S.t[i],hand=[];C.forEach(c=>['S','M'].forEach(s=>{for(let k=0;k<t.p[c][s];k++)hand.push({c,s});t.p[c][s]=0}));mv={o:i,hand,sel:null,path:[i],placed:[],loop:null};S.ph='move'}
 function place(x){mv.sw=null;mv.hs=null;const k=mv.sel;mv.hand.splice(mv.hand.findIndex(h=>h.c===k.c&&h.s===k.s),1);S.t[x].p[k.c][k.s]++;
  mv.placed.push({x,k:{...k},path:[...mv.path],loop:mv.loop&&{cyc:mv.loop.cyc,i:mv.loop.i}});
@@ -431,6 +453,7 @@ function undo(){mv.sw=null;mv.hs=null;const q=mv.placed.pop();S.t[q.x].p[q.k.c][
 function commit(){const q=mv.placed[mv.placed.length-1],t=S.t[q.x],k=q.k,n=t.p[k.c][k.s];
  if(k.s==='S'){S.pop[S.cur][k.c]+=n;t.p[k.c].S=0}
  S.log.push({p:S.cur,t:`Move: ${[mv.o,...mv.placed.map(z=>z.x)].map(nm).join('→')} · ${k.s==='S'?'small':'medium'} ${NM[k.c]} ×${n}`,k:'m'});a={x:q.x,n,left:n,sel:null,c:k.c};mv=null;if(k.s==='M'){S.ph='ch';return}lg(' → popularity pool');S.pg={p:S.cur,c:k.c,n};S.ph='pp';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='pp'&&a){S.pg=null;Tx=1;begin(0);render();Tx=0}},1150)}
+function s2ok(){return !!a&&adj(a.x).some(u=>[0,1,2,3,4,5,6,7,8].some(i=>i!==u&&i!==a.x&&hasB(S.t[i])))}
 function begin(adv){const k={c:a.c};a.adv=adv?1:0;S.log.push({p:S.cur,k:'a',t:`${(adv?{b:'Spanning II',r:'Silencing II',g:'Steering'}:{b:'Spanning',r:'Silencing',g:'Seeding'})[k.c]}:`});a.li=S.log.length-1;
  if(k.c==='b'){if(adv)S.ph='sw1';else{score();return after()}}
  else if(k.c==='r')S.ph=adv?'sil2':'sil';
@@ -443,9 +466,9 @@ function auto(){const A=adj(a.x);let dead=false;
  if(S.ph==='st1'&&!S.sup)S.ph='st2';
  if(S.ph==='st2'&&!stOpts())dead=true;
  if(dead)endTurn()}
-const score=()=>{const o=S.vp[0]+S.vp[1];const pt=adj(a.x).filter(y=>hasB(S.t[y])).length*a.n;S.vp[S.cur]+=pt;a.pt=pt;lg(` +${pt} VP.`);if(S.opt.mob)a.mob=3*(((S.vp[0]+S.vp[1])/10|0)-(o/10|0))};
+const score=()=>{const o=S.vp[0]+S.vp[1];const pt=adj(a.x).filter(y=>hasB(S.t[y])).length*a.n;S.vp[S.cur]+=pt;a.pt=pt;lg(` +${pt} VP.`);if(S.opt.mob)a.mob=3*(((S.vp[0]+S.vp[1])/15|0)-(o/15|0))};
 function after(){if(a.mob){lg(` Mobilisation: +${a.mob} pyramids.`);a.left=a.mob;a.mb=1;a.any=true;a.mob=0;a.sel=null;S.ph='seed';auto();render()}else endTurn()}
-let NV=-1,tm,NET=null,ME=0,rec=0,FL=0,Tx=0,AP=[],Q=[],qt=0,et=0,UH=[],FR=[],LJ='',RP=0,ST=1,sv=0,NETM='',NETC='',NG=0,UO=-1,CF=0;const ACT=['sw1','sw2','sil','sil2','seed','st1','st1d','st2'];const flip=()=>((NET?ME===1:S.ai<0?S.cur===1:S.ai===0)?1:0)^FL;
+let NV=-1,tm,NET=null,ME=0,rec=0,FL=0,Tx=0,AP=[],Q=[],qt=0,et=0,UH=[],FR=[],LJ='',RP=0,ST=1,sv=0,NETM='',NETC='',NG=0,UO=-1,CF=0;const ACT=['sw1','sw2','sil','sil2','seed','st1','st1d','st2'];const flip=()=>((NET?MEi()===1:S.ai<0?S.cur===1:S.ai===0)?1:0)^FL;
 function search(first){const out=[];let nodes=0;
  for(let o=0;o<9;o++){if(!tot(S.t[o]))continue;nodes=0;startMove(o);const seq=[];
   (function dfs(){if(nodes++>(first===2?20000:2500)||(first===1&&out.length)||(first===2&&out.some(q=>q.o===o)))return;
@@ -455,13 +478,13 @@ function search(first){const out=[];let nodes=0;
   mv.hand.forEach(h=>S.t[o].p[h.c][h.s]++);mv=null}
  S.ph='pick';return out}
 const pk=(l,f)=>l.map(x=>[x,f(x)+Math.random()]).sort((p,q)=>q[1]-p[1])[0][0];
-function aiGo(){clearTimeout(tm);if(S.ai!==S.cur||S.ph==='over')return;tm=setTimeout(aiStep,S.ph==='pick'?1200:1100)}
+function aiGo(){clearTimeout(tm);if(S.ai!==ctl()||S.ph==='over')return;tm=setTimeout(aiStep,S.ph==='pick'?1200:1100)}
 const scoreOf=(p,mm)=>S.t.reduce((sum,t,i)=>{const m=mm[i][p],o=mm[i][1-p];if(!m)return sum;let v=m>o?5:m===o?4:3;if(m>=o){const lost=!(mm[i][0]+mm[i][1]);C.forEach(c=>v+=S.pop[p][c]*(t.p[c].S+t.p[c].M+(lost?0:t.d[c])))}return sum+v},0);
 function igBest(me){if(!S.opt.ig||S.ig[me]||!C.every(c=>S.pop[me][c]>0)||S.t.filter(hasM).length<2)return null;const op=1-me,base=S.t.map(t=>[t.m[0],t.m[1]]),d0=scoreOf(me,base)-scoreOf(op,base);let best=null;
  S.t.forEach((t,i)=>[0,1].forEach(p=>{if(!t.m[p])return;S.t.forEach((u,j)=>{if(j===i||!hasM(u))return;const mm=base.map(x=>[x[0],x[1]]);mm[i][p]--;mm[j][p]++;const d=scoreOf(me,mm)-scoreOf(op,mm)-d0;if(!best||d>best.d)best={i,p,to:j,d}})}));
  return best&&best.d>=(S.sup<=2?2:4)?best:null}
 let AIG=null;
-function aiStepOld(){if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;UH=[];const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
+function aiStepOld(){if(RP||S.bz||S.ai!==ctl()||S.ph==='over')return;UH=[];const ph=S.ph,H=[...hlSet()],me=S.cur,op=1-me,T=S.t;
  if(ph==='pick'&&(AIG=igBest(me))){S.igEnd=0;S.ph='ig1';return render()}
  if(ph==='ig0'){if((AIG=igBest(me))){S.igEnd=1;S.ph='ig1';return render()}CF=1;return endTurn2()}
  if(ph==='ig1'){const g=AIG||igBest(me)||{i:H[0],p:me,to:H[1]};AIG=g;S.igs={i:g.i,p:g.p};S.ph='ig2';return render()}
@@ -503,7 +526,7 @@ function searchAll(){const out=[],seen=new Set();let nodes=0;
   mv.hand.forEach(h=>S.t[o].p[h.c][h.s]++);mv=null}
  S.ph='pick';return out}
 function actOpts(){const ph=S.ph,out=[],A=a?adj(a.x):[];
- if(ph==='sw1'){for(const u of A)for(let i=0;i<9;i++){if(i===u||!hasB(S.t[i]))continue;out.push({d:[{k:'t',i:u},{k:'t',i}],ap:()=>{onTile0(u);onTile0(i)}})}}
+ if(ph==='sw1'){for(const u of A)for(let i=0;i<9;i++){if(i===u||i===a.x||!hasB(S.t[i]))continue;out.push({d:[{k:'t',i:u},{k:'t',i}],ap:()=>{onTile0(u);onTile0(i)}})}}
  else if(ph==='sil'){for(const i of A)for(const c of C)for(const s of ['S','M'])if(S.t[i].p[c][s]>0)out.push({d:[{k:'p',i,c,s}],ap:()=>onPyr0(i,c,s)})}
  else if(ph==='sil2'){for(const i of A)for(const c of C)if(S.t[i].d[c])out.push({d:[{k:'d',i,c}],ap:()=>onDie0(i,c)})}
  else if(ph==='seed'){const av=avail(),H=[...hlSet()];for(const v of av)for(const i of H)out.push({d:[{k:'seed',c:v.c,s:v.s,i}],ap:()=>{a.sel={c:v.c,s:v.s};onTile0(i)}})}
@@ -528,7 +551,7 @@ function planTurn(depth,K){
  const outs=[];SIM=1;
  try{for(const c of cands){
    restS(base);startMove(c.o);for(const[cc,s,x]of c.seq){mv.sel={c:cc,s};place(x)}
-   commit();const post=snapS(),brs=S.ph==='ch'?[0,1]:[0];
+   commit();const post=snapS(),brs=S.ph==='ch'?(a&&a.c==='b'&&!s2ok()?[0]:[0,1]):[0];
    for(const adv of brs){restS(post);const steps=[];begin(adv);runAct(me,steps);outs.push({v:ev(me)+Math.random()*.01,o:c.o,seq:c.seq,adv,steps,end:snapS()})}}
   outs.sort((x,y)=>y.v-x.v);
   if(depth>1){const M=Math.min(outs.length,window.AIM||6);
@@ -545,12 +568,12 @@ function applyPro(i,c,p){const t=S.t[i];t.m[p]++;S.sup--;t.d[c]=1;S.dice[c]--}
 function proChoices(){const o=[];for(let i=0;i<9;i++){if(S.pro===1&&S.first===i)continue;for(const c of C)if(S.dice[c]>0)o.push({i,c})}return o}
 function firstTurnVal(K){S.cur=0;S.ph='pick';S.pi=null;const ps=planTurn(1,K);return ps&&ps[0]?ps[0].v:ev(0)}
 function planPro(){
- const me=S.cur,R={S,mv,a},s0=snapS(),ch=proChoices();let best=null,bv=-1e9;SIM=1;
+ const me=S.cur,R={S,mv,a},s0=snapS(),ch=proChoices(),sg=me===0?1:-1;let best=null,bv=-1e9;SIM=1;
  try{for(const x of ch){restS(s0);applyPro(x.i,x.c,me);let v;
-   if(me===0){S.pro=1;S.first=S.first<0?x.i:S.first;v=firstTurnVal(10)}
-   else{S.first=x.i;S.pro=1;const s1=snapS();
-    const rep=proChoices().map(y=>{restS(s1);applyPro(y.i,y.c,0);S.cur=0;return{y,q:ev(0)+Math.random()*.01}}).sort((p,q)=>q.q-p.q).slice(0,3);
-    v=1e9;for(const r of rep){restS(s1);applyPro(r.y.i,r.y.c,0);const w=-firstTurnVal(8);if(w<v)v=w}}
+   if(S.pro===1){S.first=S.first<0?x.i:S.first;v=sg*firstTurnVal(10);if(S.opt.pie)v=-Math.abs(v)}
+   else{S.first=x.i;S.pro=1;const s1=snapS(),rp=1-me;
+    const rep=proChoices().map(y=>{restS(s1);applyPro(y.i,y.c,rp);return{y,q:ev(rp)+Math.random()*.01}}).sort((p,q)=>q.q-p.q).slice(0,3);
+    v=1e9;for(const r of rep){restS(s1);applyPro(r.y.i,r.y.c,rp);const w=sg*firstTurnVal(8);if(w<v)v=w}}
    v+=Math.random()*.05;if(v>bv){bv=v;best=x}}
  }finally{SIM=0;SIMD=0;S=R.S;mv=R.mv;a=R.a}
  return best}
@@ -569,13 +592,15 @@ function planIntrigue(){const me=S.cur,op=1-me;
 let PRO=null;
 const PH_K={sw1:'t',sw2:'t',sil:'p',sil2:'d',st2:'d',seed:'seed',st1:'t',st1d:'die'};
 function aiStep(){
- if(RP||S.bz||S.ai!==S.cur||S.ph==='over')return;
+ if(RP||S.bz||S.ai!==ctl()||S.ph==='over')return;
+ if(S.ph==='pie')return aiPie();
+ if(S.easy&&(S.ph==='pm'||S.ph==='pd'||(S.ph==='pick'&&igBest(S.cur))))return aiStepOld();
  if(window.AIV&&AIV[S.cur]==='old')return aiStepOld();
  const ph=S.ph;
  if(ph==='pm'){const x=planPro();if(x){PRO=x;if(hlSet().has(x.i))return onTile(x.i)}return aiStepOld()}
  if(ph==='pd'&&PRO){const c=PRO.c;PRO=null;if(S.dice[c]>0)return setDie(c);return aiStepOld()}
  if(ph==='pick'){const g=planIntrigue();if(g){AIG=g;S.igEnd=0;S.ph='ig1';return render()}}
- if(ph==='pick'){const ps=planTurn((window.AIDEPTH||1),window.AIK||40),pl=ps&&ps[0];if(!pl)return aiStepOld();startMove(pl.o);AP=pl.seq;PLANX={adv:pl.adv,steps:pl.steps,i:0};return render()}
+ if(ph==='pick'){const ps=planTurn((window.AIDEPTH||1),S.easy?(window.AIKM||8):(window.AIK||40)),rk=S.easy?(()=>{const x=Math.random();return x<(window.AIP1||.45)?0:x<(window.AIP1||.45)+.3?1:2})():0,pl=ps&&(ps[Math.min(rk,ps.length-1)]);if(!pl)return aiStepOld();startMove(pl.o);AP=pl.seq;PLANX={adv:pl.adv,steps:pl.steps,i:0};return render()}
  if(ph==='ch'&&PLANX){begin(PLANX.adv);return render()}
  if(PH_K[ph]&&PLANX){const st=PLANX.steps[PLANX.i];
   if(st&&st.k===PH_K[ph]){PLANX.i++;
@@ -667,10 +692,10 @@ function mdlg(){let e=$('mdlg');if(e)return e;e=document.createElement('div');e.
 async function openMsg(auto){const e=mdlg(),g=NET&&NET.g;
  $('mdpaste').style.display=g?'none':'';$('mdr').style.display=g?'':'none';$('mdc').textContent=g?'Copy key':'Copy code';$('mde').textContent='';$('mdst').textContent=g?(NET.status||''):'';
  if(g){const o=$('mdout');o.value=invite();o.dataset.code='';$('mdh').textContent='Shared game';$('mdi').textContent='Send this invite link (or the key) to your opponent once. After that you both just play: new moves arrive automatically, within about 15 seconds while the page is open, or as soon as it is opened again.';e.hidden=false;return}
- let js=MSG;if(!js&&S)js=JSON.stringify({S,mv,a});const my=NET&&NET.link&&(S.cur!==ME||S.ph==='over');
+ let js=MSG;if(!js&&S)js=JSON.stringify({S,mv,a});const my=NET&&NET.link&&(ctl()!==MEi()||S.ph==='over');
  const code=await packCode(js);const o=$('mdout');o.value=code;o.dataset.code=code;
  $('mdh').textContent=S.ph==='over'?'Game over':my?'Your turn is done':'Turn code';
- $('mdi').textContent=my?'Send this code (or the link) to your opponent. When they reply, paste their code below.':S.cur===ME?'It is your turn. You can paste a newer code from your opponent below if needed.':'Waiting for your opponent. Paste their code below when it arrives.';
+ $('mdi').textContent=my?'Send this code (or the link) to your opponent. When they reply, paste their code below.':ctl()===MEi()?'It is your turn. You can paste a newer code from your opponent below if needed.':'Waiting for your opponent. Paste their code below when it arrives.';
  $('mdin').value='';e.hidden=false}
 async function joinShared(id,seat,er){let o;try{const r=await fetch(JB()+'/'+id,{headers:{Accept:'application/json'},cache:'no-store'});if(!r.ok)throw 0;o=await r.json();if(!o.js)throw 0}catch(e){er.textContent='Could not load this game. Check the link and your connection.';return}
  let d;try{d=JSON.parse(o.js);if(!d.S||!d.S.t)throw 0}catch(e){er.textContent='This game data is not valid.';return}
@@ -688,7 +713,7 @@ const packN=()=>JSON.stringify({S,mv,a,cl:CL});
 const mergeCl=c=>{if(c)for(let i=0;i<2;i++)if(c[i]&&i!==ME)CL[i]=c[i]};
 async function peekRoom(rk){const code='nx'+rk.toLowerCase().replace(/[^a-z0-9]/g,'');try{const api=nxApi();let js=null;if(api){const r=await fetch(api+'/g/'+code+'?since=-1');if(r.status===200)js=(await r.json()).js}else{const db=await claude.use('db');if(db){const sn=await db.doc('games/'+code).get();if(sn.exists)js=(sn.data()||{}).js}}if(js){const o=JSON.parse(js);if(o&&o.S&&o.S.ph!=='over')return o}}catch(e){}return null}
 function sendSoon(){clearTimeout(et);et=setTimeout(()=>NET&&NET.emit('st',packN()),0)}
-async function start(m,rc,resume){NET=null;CL=[null,null];if(!resume){init();S.opt={mob:+$('omob').checked,ig:+$('oig').checked};S.ai=m[0]==='a'?1-(m==='air'?(Math.random()<.5?0:1):+m[2]):-1}$('menu').hidden=true;$('menu').className='';NETM=m;
+async function start(m,rc,resume){NET=null;CL=[null,null];if(!resume){init();S.opt={mob:+$('omob').checked,ig:+$('oig').checked,pie:+(document.querySelector('input[name=open]:checked').value==='1')}; S.easy=+(m[0]==='a'&&document.querySelector('input[name=dif]:checked').value==='0');S.ai=m[0]==='a'?1-(m==='air'?(Math.random()<.5?0:1):+m[2]):-1}$('menu').hidden=true;$('menu').className='';NETM=m;
  if(m[0]==='n'){ME=+m[1];NETC=rc||$('code').value||'game';const code='nx'+NETC.toLowerCase().replace(/[^a-z0-9]/g,'');
   try{const api=nxApi();NET=api?httpNet(api,code):await dbNet(code)}catch(e){NET=null}
   if(!NET)try{const rm=await claude.use('room');NET=rm&&await rm.join(code)}catch(e){NET=null}
@@ -705,11 +730,11 @@ async function start(m,rc,resume){NET=null;CL=[null,null];if(!resume){init();S.o
    if(c[ME]&&c[ME]!==CID&&!confirm('This room key already has a game, and Player '+(ME+1)+' is taken by another browser or device.\n\nOK = take over this seat (for example when you switch devices)\nCancel = go back and choose the other seat')){if(NET.close)NET.close();NET=null;Q.length=0;init();$('menu').hidden=false;$('menu').className='';return}
    mergeCl(c);NET.wait=0;Q.push(ex);drain();if(c[ME]!==CID)sendSoon()}
   else{if(ME===1&&NET.async&&!resume)NET.wait=1;if(ME===1)NET.emit('hi',1);else if(NET.async&&!resume){NET.force=1;NET.emit('st',packN())}}}
- else if(m[0]==='l'){ME=+m[1];NET=linkNet();if(!resume&&S.cur!==ME){MSG=JSON.stringify({S,mv,a});setTimeout(()=>openMsg(1),0)}}
+ else if(m[0]==='l'){ME=+m[1];NET=linkNet();if(!resume&&ctl()!==MEi()){MSG=JSON.stringify({S,mv,a});setTimeout(()=>openMsg(1),0)}}
  else if(m[0]==='g'){ME=+m[1];if(resume)NET=gNet(NETC);else{try{const id=await jbCreate({js:JSON.stringify({S,mv,a}),by:ME,seq:1,ts:Date.now()});NETC=id;NET=gNet(id,1);setTimeout(()=>openMsg(1),0)}catch(e){NET=null;alert('Could not create the shared game (storage service not reachable). You can play with turn codes instead.');$('menu').hidden=false;$('menu').className='msg';return}}}
  render()}
 function endTurn(){if(SIM){SIMD=1;return}if(a&&S.ph!=='ad'&&!RP){S.ph='ad';setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='ad'){Tx=1;if(a&&a.mk&&a.mk.length){a.mk=[];render();setTimeout(function g2(){if(RP)return setTimeout(g2,400);if(S.ph==='ad'){Tx=1;endTurn();Tx=0}},200)}else endTurn();Tx=0}},350);return render()}mv=a=null;if(S.opt.ig&&!S.ig[S.cur]&&C.every(c=>S.pop[S.cur][c]>0)&&S.t.filter(hasM).length>1){S.ph='ig0';return render()}return endTurn2()}
-function endTurn2(){if(S.ai>=0&&S.ai!==S.cur&&!CF&&S.ph!=='over'){S.ph='cf';mv=a=null;S.itg=null;return render()}CF=0;mv=a=null;S.itg=null;
+function endTurn2(){if(S.ai>=0&&S.ai!==ctl()&&!CF&&S.ph!=='over'){S.ph='cf';mv=a=null;S.itg=null;return render()}CF=0;mv=a=null;S.itg=null;
  if(S.fin){S.fin=false;if(S.sup===0)return finish()}
  if(S.sup===0)S.fin=true;
  S.cur=1-S.cur;S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))];if(!S.lg.length)return finish();render()}
@@ -737,8 +762,16 @@ function onDie0(i,c){const t=S.t[i],ok=a&&adj(a.x).includes(i);
  else if(S.ph==='st2'&&ok&&hasM(t)&&a.left>0){if(t.d[c]){if(t.d[c]>=6)return;t.d[c]++}else{if(!S.dice[c])return;S.dice[c]--;t.d[c]=1}
   a.left--;lg(` +1 ${NM[c]} die at ${nm(i)}.`);(a.mk=a.mk||[]).push('d:'+i+':'+c);if(!stOpts())return endTurn();render()}
  else onTile(i)}
+function proNext(pi){S.bz=0;S.itg=null;S.pq=null;Tx=1;if(S.pro===0){S.first=pi;S.pro=1;S.cur=1;S.ph='pm'}else if(S.opt.pie){S.pro=2;S.cur=0;S.ph='pie';S.lg=[];S.log.push({p:1,k:'p',t:'Both opening positions are set. Player 2 chooses a position.'})}else{S.cur=0;S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))]}render();Tx=0}
+function pieChoose(q){
+ if(S.ph!=='pie')return;Tx=1;
+ if(q===0){S.sw=1;if(S.ai>=0)S.ai=1-S.ai}
+ S.cur=0;S.itg=null;S.pro=3;
+ S.log.push({p:q===0?0:1,k:'p',t:q===0?'Player 2 takes the position of Player 1 and becomes Player 1 (moves first). The former Player 1 becomes Player 2.':'Player 2 takes the other position and stays Player 2. Player 1 moves first.'});
+ S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))];render();Tx=0}
+function aiPie(){let q=0;if(!S.easy){const R={S,mv,a},s0=snapS();SIM=1;let v=0;try{restS(s0);v=firstTurnVal(12)}finally{SIM=0;SIMD=0;S=R.S;mv=R.mv;a=R.a}q=v>0?0:1}pieChoose(q)}
 function setDie0(c){const t=S.t[S.ph==='pd'?S.pi:a.si];S.dice[c]--;t.d[c]=1;if(S.ph==='pd')S.log.push({p:S.cur,k:'p',t:`Prologue: marker and ${NM[c]} die at ${nm(S.pi)}.`});else{lg(` Die: ${NM[c]}.`);(a.mk=a.mk||[]).push('d:'+a.si+':'+c)}
- if(S.ph==='pd'){const pi=S.pi,p0=S.cur;S.ph='pdd';S.bz=1;S.itg={p:p0,mk:['m:'+pi+':'+p0,'d:'+pi+':'+c]};render();setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='pdd'){S.bz=0;S.itg=null;Tx=1;if(S.pro===0){S.first=pi;S.pro=1;S.cur=0;S.ph='pm'}else{S.cur=0;S.ph='pick';S.lg=[...new Set(search(2).map(q=>q.o))]}render();Tx=0}},1000);return}
+ if(S.ph==='pd'){const pi=S.pi,p0=S.cur;S.ph='pdd';S.bz=1;S.itg={p:p0,mk:['m:'+pi+':'+p0,'d:'+pi+':'+c]};render();{const nx=S.opt.pie?(S.pro===0?0:1):1-p0;if(S.ai>=0&&S.ai!==ctl()&&S.ai===nx){S.bz=0;S.ph='pcf';S.pq=pi;return render()}}setTimeout(function go(){if(RP)return setTimeout(go,400);if(S.ph==='pdd'){proNext(pi)}},1000);return}
  else{a.left--;S.ph='st2';auto()}
  render()}
 let Z=1;try{Z=+localStorage.getItem('nxz')||1}catch(e){}
@@ -770,10 +803,12 @@ function act(k){
  else if(k==='igx'){if(S.igEnd){S.igEnd=0;S.ph='ig0'}else S.ph='pick'}
  else if(k==='fin'){CF=1;return endTurn2()}
  else if(k==='fin2'){CF=1;return endTurn2()}
+ else if(k==='fin3'){if(S.ph==='pcf')proNext(S.pq);return}
+ else if(k==='pie0'||k==='pie1'){return pieChoose(k==='pie0'?0:1)}
  render()}
 document.addEventListener('mouseover',e=>{const el=e.target.closest&&e.target.closest('#hist [data-k="h"]');if(el)hoverIn(+el.dataset.i);else if(RP&&RP.hv&&!RP.nav)stopRp()});
 document.addEventListener('click',e=>{const el=e.target.closest('[data-k]');if(!el)return;const d=el.dataset,i=+d.i;
- if(d.k==='msg'){openMsg();return}if(d.k==='lnew')return start(d.m);if(d.k==='lload')return loadCode($('lcode').value);if(d.k==='mx'){MX^=1;ui();return}if(d.k==='inf'){const e=$('s_'+d.a);if(e)e.hidden=!e.hidden;return}if(d.k==='sp'){const mm={open:'seat',room:'room',msg:'msg',back:''};if(d.a==='oseat'){const k=$('code').value.trim();if(k)peekRoom(k).then(o=>{const i=((o&&o.cl)||[]).indexOf(CID);if(i>=0)start('n'+i,k);else $('menu').className='oseat'})}else $('menu').className=mm[d.a];return}if(d.k==='go')return start(d.m);if(d.k==='x'&&d.a==='rpx')return stopRp();if(d.k==='x'&&d.a==='newg'){if(Date.now()-NG<3000){NG=0;try{localStorage.removeItem('nxs')}catch(e){}$('menu').hidden=false}else{NG=Date.now();setTimeout(render,3100)}render();return}if(d.k==='x'&&(d.a==='stk'||d.a==='flip')){if(d.a==='stk')ST^=1;else FL^=1;return render()}if(d.k==='nv')return nav(d.a);if(d.k==='h')return RP?(RP.nav?navTo(+d.i):0):replay(+d.i);if(d.k==='x'&&d.a==='uundo'){if(!RP&&!S.bz&&UH.length&&!(S.ai===S.cur&&S.ph!=='over'))undoStep();return}if(d.k==='x'&&d.a==='urst'){if(!RP&&!S.bz&&UH.length&&!(S.ai===S.cur&&S.ph!=='over')){UH.length=1;undoStep()}return}if(RP||S.bz||(S.ai===S.cur&&S.ph!=='over'))return;if(S.ph==='over'&&d.k!=='x')return;if(NET&&(NET.wait||S.cur!==ME&&S.ph!=='over'))return;Tx=1;setTimeout(()=>{Tx=0});const tr=1,k0=stepKey(),pre=JSON.stringify({S,mv,a}),c0=S.cur;
+ if(d.k==='msg'){openMsg();return}if(d.k==='lnew')return start(d.m);if(d.k==='lload')return loadCode($('lcode').value);if(d.k==='mx'){MX^=1;ui();return}if(d.k==='inf'){const e=$('s_'+d.a);if(e)e.hidden=!e.hidden;return}if(d.k==='sp'){const mm={open:'seat',hot:'hot',room:'room',msg:'msg',back:''};const SL={open:'#m2',hot:'#m6'}[d.a];if(SL)document.querySelector(SL+' .slot').appendChild($('optbox'));if(d.a==='o1'){document.querySelector('#m7 .slot').appendChild($('optbox'));$('menu').className='oopt';return}if(d.a==='o2'){$('menu').className='oseat';return}if(d.a==='oseat'){const k=$('code').value.trim();if(k)peekRoom(k).then(o=>{const i=((o&&o.cl)||[]).indexOf(CID);if(i>=0)start('n'+i,k);else $('menu').className='oseat'})}else $('menu').className=mm[d.a];return}if(d.k==='go')return start(d.m);if(d.k==='x'&&d.a==='rpx')return stopRp();if(d.k==='x'&&d.a==='newg'){if(Date.now()-NG<3000){NG=0;try{localStorage.removeItem('nxs')}catch(e){}$('menu').hidden=false}else{NG=Date.now();setTimeout(render,3100)}render();return}if(d.k==='x'&&(d.a==='stk'||d.a==='flip')){if(d.a==='stk')ST^=1;else FL^=1;return render()}if(d.k==='nv')return nav(d.a);if(d.k==='h')return RP?(RP.nav?navTo(+d.i):0):replay(+d.i);if(d.k==='x'&&d.a==='uundo'){if(!RP&&!S.bz&&UH.length&&!(S.ai===ctl()&&S.ph!=='over'))undoStep();return}if(d.k==='x'&&d.a==='urst'){if(!RP&&!S.bz&&UH.length&&!(S.ai===ctl()&&S.ph!=='over')){UH.length=1;undoStep()}return}if(RP||S.bz||(S.ai===ctl()&&S.ph!=='over'))return;if(S.ph==='over'&&d.k!=='x')return;if(NET&&(NET.wait||ctl()!==MEi()&&S.ph!=='over'))return;Tx=1;setTimeout(()=>{Tx=0});const tr=1,k0=stepKey(),pre=JSON.stringify({S,mv,a}),c0=S.cur;
  if(d.k==='t')onTile(i);else if(d.k==='p')onPyr(i,d.c,d.s);else if(d.k==='d')onDie(i,d.c);else if(d.k==='pp')swapClick(+d.j);
  else if(d.k==='chip'){if(S.ph==='move'&&mv.sw!=null)swapHand(mv.sw,d.c,d.s);else if(S.ph==='move'){mv.sel={c:d.c,s:d.s};mv.hs=(mv.hs&&mv.hs.c===d.c&&mv.hs.s===d.s)?null:{c:d.c,s:d.s}}else a.sel={c:d.c,s:d.s};render()}
  else if(d.k==='dc')setDie(d.c);else if(d.k==='x')act(d.a);
@@ -803,12 +838,13 @@ function swapHand(j,c,s){const q=mv.placed[j];mv.sw=null;if(!q)return;const k=q.
 const handHTML=()=>mv&&(S.ph==='move'||S.ph==='confirm')?`<div class="hw"><div class="hp">${grp(mv.hand).map(x=>`<button class="hi${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?' sel':''}${mv.hs&&x.c===mv.hs.c&&x.s===mv.hs.s?' hs':''}" data-k="chip" data-c="${x.c}" data-s="${x.s}">${mv.sel&&x.c===mv.sel.c&&x.s===mv.sel.s?pyr(x.c,x.s,x.n,0,1,1):pyr(x.c,x.s,x.n)}<span>${NM[x.c]} ${x.s==='S'?'small':'medium'}</span></button>`).join('')}</div><div class="hh">${mv.hand.length} left</div></div>`:'';
 let MX=0;
 const T=(n,c)=>`<span class="at ${c}">${n}</span>`;
-function msgShort(){const n=a&&a.left,W=who(),pl=n>1?'s':'',p=S.ph;
+function msgShort(){const n=a&&a.left,W=who(),pl=n>1?'s':'',p=S.ph;if(p==='pie')return ctl()===S.ai?'The computer is choosing a position.':'Player 2 is choosing a position.';
  if(p==='move'&&mv){if(mv.hand.length>0&&!completable())return `${W} has no legal move from here. Undo a placement.`;if(mv.hand.length===1&&!targets().length)return `${W} cannot place the last pyramid legally and must swap pyramids.`}
  if(p==='confirm'&&mv&&mv.warn)return `${W} cannot make that swap: it would break the last-pyramid rule.`;
  const AN=a?({b:a.adv?'Spanning II':'Spanning',r:a.adv?'Silencing II':'Silencing',g:a.adv?'Steering':'Seeding'})[a.c]:'';
  const spv=a&&a.mb&&a.pt!==undefined?`${W} scored ${a.pt} VP via ${T(a.adv?'Spanning II':'Spanning I','b')} and `:'';
  const adm=a&&a.mb?`${W} completes ${T('Mobilisation','s')}.`:a&&a.pt!==undefined?`${W} scores ${a.pt} VP via ${T(a.adv?'Spanning II':'Spanning I','b')}.`:a?`${W} completes ${T(AN,a.c)}.`:`${W} completes the action.`;
+ if(S.opt.pie&&(p==='pm'||p==='pd'||p==='pdd'||p==='pcf'))return `Opening: Player 1 sets up the position of ${W}${p==='pm'?' – marker':p==='pd'?' – die':''}.`;
  return({pm:`${W} is placing an influence marker on a sector.`,pd:`${W} is choosing a die colour in the sector.`,pick:`${W} is picking up the pyramids of a sector.`,move:`${W} is placing the next pyramid on a neighbouring sector.`,confirm:`${W} has completed the move and may still swap pyramids.`,sw1:`${W} is swapping two sectors via ${T('Spanning II','b')}: choosing a neighbouring sector.`,sw2:`${W} is swapping two sectors via ${T('Spanning II','b')}: choosing the second sector.`,sil:`${W} is removing ${n} pyramid${pl} via ${T('Silencing','r')}.`,sil2:`${W} is removing ${n} pip${pl} via ${T('Silencing II','r')}.`,seed:a&&a.mb?`${spv||W+' '}is placing ${n} pyramid${pl} via ${T('Mobilisation','s')}.`:`${W} is placing ${n} pyramid${pl} via ${T('Seeding','g')}.`,st1:`${W} is placing an influence marker via ${T('Steering','g')}.`,st1d:`${W} is choosing the die colour via ${T('Steering','g')}.`,st2:`${W} is adding ${n} pip${pl} to dice via ${T('Steering','g')}.`,ig0:`${W} has finished the turn and may play ${T('Intrigue','s')}.`,ig1:`${W} is moving an influence marker via ${T('Intrigue','s')}.`,ig2:`${W} is choosing the target sector via ${T('Intrigue','s')}.`,ch:`${W} is choosing between the basic and the advanced action.`,pp:`Small pyramids join the popularity pool of ${W}.`,ad:adm,pdd:`${W} has placed an influence marker and a die.`,igd:`${W} has played ${T('Intrigue','s')}.`,cf:`${W} is ready to end the turn.`})[p]||msgFull()}
 function msgBox(){return S.ph==='over'?msgFull():`<span class="mt">${msgShort()}</span>`}
 const stepKey=()=>JSON.stringify({S,m:mv&&{...mv,sw:0,hs:0,sel:0,warn:0},a:a&&{...a,sel:0}});
